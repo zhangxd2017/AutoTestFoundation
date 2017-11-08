@@ -11,6 +11,6 @@ namespace AutoTestFoundation.Model
         /// <summary>
         /// 项目数据库名称
         /// </summary>
-        public string DataBaseName;
+        public string DataBaseName { get; set; }
     }
 }

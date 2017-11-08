@@ -9,14 +9,14 @@ namespace AutoTestFoundation.Model
         /// </summary>
         public static User TestUser = new User("Test", "");
 
-        public string name;
+        public string Name { get; set; }
 
-        public string password;
+        public string Password { get; set; }
 
         public User(string name, string password)
         {
-            this.name = name;
-            this.password = password;
+            this.Name = name;
+            this.Password = password;
         }
 
         /// <summary>
@@ -25,7 +25,7 @@ namespace AutoTestFoundation.Model
         /// <returns></returns>
         public bool IsAdmin()
         {
-            return !name.Equals(TestUser.name);
+            return !Name.Equals(TestUser.Name);
         }
 
     }

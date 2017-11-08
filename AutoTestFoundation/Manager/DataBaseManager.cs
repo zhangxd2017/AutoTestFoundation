@@ -5,7 +5,7 @@ using System.Data.SQLite;
 using System.Diagnostics;
 using System.Reflection;
 
-namespace LKTester
+namespace AutoTestFoundation
 {
     class DataBaseManager
     {

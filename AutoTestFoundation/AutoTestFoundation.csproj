@@ -69,6 +69,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Constant\MouseDirection.cs" />
+    <Compile Include="Constant\ResultCode.cs" />
+    <Compile Include="Constant\WindowMessage.cs" />
     <Compile Include="DataBase\SQLiteColumn.cs" />
     <Compile Include="DataBase\SQLiteColumnList.cs" />
     <Compile Include="DataBase\SQLiteHelper.cs" />
@@ -137,7 +140,6 @@
     <None Include="Config\Application.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Config\zte.db" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -159,7 +161,6 @@
     <Content Include="icon.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Constant\" />
     <Folder Include="Control\Camera\" />
     <Folder Include="Control\Card\" />
     <Folder Include="View\" />
