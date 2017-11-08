@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using AutoTestFoundation.Constant;
+using AutoTestFoundation.View;
 
 namespace AutoTestFoundation
 {
@@ -83,7 +84,6 @@ namespace AutoTestFoundation
             {
                 this.Cursor = Cursors.SizeNS;
                 direction = MouseDirection.Vertical;
-
             }
             //否则，以外的窗体区域，鼠标星座均为单向箭头（默认）             
             else
@@ -114,7 +114,6 @@ namespace AutoTestFoundation
 
         private void TitleLabel_MouseDown(object sender, MouseEventArgs e)
         {
-            Console.WriteLine("TitleLabel_MouseDown");
             if (titleClickTimer == null)
             {
                 titleClickTimer = new System.Threading.Timer(TitleClickExecute, null, 500, System.Threading.Timeout.Infinite);
@@ -140,7 +139,8 @@ namespace AutoTestFoundation
                     nameCell.Value = item.ItemText;
                     viewRow.Cells.Add(nameCell);
                     //进度
-                    DataGridViewTextBoxCell progressCell = new DataGridViewTextBoxCell();
+                    DataGridViewProgressBarCell progressCell = new DataGridViewProgressBarCell();
+                    progressCell.Value = 40;
                     viewRow.Cells.Add(progressCell);
                     //结果
                     DataGridViewTextBoxCell resultCell = new DataGridViewTextBoxCell();
@@ -150,6 +150,7 @@ namespace AutoTestFoundation
                     viewRow.Cells.Add(timeCell);
                     MainDataGridView.Rows.Add(viewRow);
                 }
+                MainDataGridView.ClearSelection();
             }
             else
             {
@@ -232,5 +233,16 @@ namespace AutoTestFoundation
             else
                 this.Cursor = Cursors.Arrow;
         }
+
+
+        #region 测试核心方法
+
+        private void OnTest()
+        {
+
+        }
+
+
+        #endregion
     }
 }

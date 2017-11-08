@@ -37,11 +37,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.MainTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.MainDataGridView = new System.Windows.Forms.DataGridView();
-            this.ColumnIndex = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnProgress = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnResult = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ContentPanel = new System.Windows.Forms.Panel();
             this.LogTextBox = new System.Windows.Forms.TextBox();
             this.PreviewPictureBox = new System.Windows.Forms.PictureBox();
@@ -50,6 +45,12 @@
             this.CountTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.UserPictureBox = new System.Windows.Forms.PictureBox();
             this.ClosePictureBox = new System.Windows.Forms.PictureBox();
+            this.StartStopButton = new System.Windows.Forms.Button();
+            this.ColumnIndex = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnProgress = new AutoTestFoundation.View.DataGridViewProgressBarCell.DataGridViewProgressBarColumn();
+            this.ColumnResult = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.MainTableLayoutPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MainDataGridView)).BeginInit();
             this.ContentPanel.SuspendLayout();
@@ -69,10 +70,11 @@
             this.MainTableLayoutPanel.Controls.Add(this.MainDataGridView, 0, 2);
             this.MainTableLayoutPanel.Controls.Add(this.ContentPanel, 2, 2);
             this.MainTableLayoutPanel.Controls.Add(this.TitleLabel, 1, 0);
-            this.MainTableLayoutPanel.Controls.Add(this.ResultLabel, 0, 3);
+            this.MainTableLayoutPanel.Controls.Add(this.ResultLabel, 0, 4);
             this.MainTableLayoutPanel.Controls.Add(this.CountTableLayoutPanel, 2, 4);
             this.MainTableLayoutPanel.Controls.Add(this.UserPictureBox, 0, 0);
             this.MainTableLayoutPanel.Controls.Add(this.ClosePictureBox, 3, 0);
+            this.MainTableLayoutPanel.Controls.Add(this.StartStopButton, 3, 1);
             this.MainTableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.MainTableLayoutPanel.Location = new System.Drawing.Point(5, 5);
             this.MainTableLayoutPanel.Name = "MainTableLayoutPanel";
@@ -117,56 +119,6 @@
             this.MainDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.MainDataGridView.Size = new System.Drawing.Size(594, 432);
             this.MainDataGridView.TabIndex = 0;
-            // 
-            // ColumnIndex
-            // 
-            this.ColumnIndex.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.ColumnIndex.DefaultCellStyle = dataGridViewCellStyle2;
-            this.ColumnIndex.HeaderText = "序号";
-            this.ColumnIndex.Name = "ColumnIndex";
-            this.ColumnIndex.ReadOnly = true;
-            this.ColumnIndex.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // ColumnName
-            // 
-            this.ColumnName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.ColumnName.DefaultCellStyle = dataGridViewCellStyle3;
-            this.ColumnName.HeaderText = "名称";
-            this.ColumnName.Name = "ColumnName";
-            this.ColumnName.ReadOnly = true;
-            this.ColumnName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // ColumnProgress
-            // 
-            this.ColumnProgress.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.ColumnProgress.DefaultCellStyle = dataGridViewCellStyle4;
-            this.ColumnProgress.HeaderText = "进度";
-            this.ColumnProgress.Name = "ColumnProgress";
-            this.ColumnProgress.ReadOnly = true;
-            this.ColumnProgress.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // ColumnResult
-            // 
-            this.ColumnResult.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.ColumnResult.DefaultCellStyle = dataGridViewCellStyle5;
-            this.ColumnResult.HeaderText = "结果";
-            this.ColumnResult.Name = "ColumnResult";
-            this.ColumnResult.ReadOnly = true;
-            this.ColumnResult.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // ColumnTime
-            // 
-            this.ColumnTime.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.ColumnTime.DefaultCellStyle = dataGridViewCellStyle6;
-            this.ColumnTime.HeaderText = "时间";
-            this.ColumnTime.Name = "ColumnTime";
-            this.ColumnTime.ReadOnly = true;
-            this.ColumnTime.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // ContentPanel
             // 
@@ -220,10 +172,9 @@
             this.MainTableLayoutPanel.SetColumnSpan(this.ResultLabel, 2);
             this.ResultLabel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ResultLabel.ForeColor = System.Drawing.Color.White;
-            this.ResultLabel.Location = new System.Drawing.Point(3, 550);
+            this.ResultLabel.Location = new System.Drawing.Point(3, 617);
             this.ResultLabel.Name = "ResultLabel";
-            this.MainTableLayoutPanel.SetRowSpan(this.ResultLabel, 2);
-            this.ResultLabel.Size = new System.Drawing.Size(594, 170);
+            this.ResultLabel.Size = new System.Drawing.Size(594, 103);
             this.ResultLabel.TabIndex = 3;
             this.ResultLabel.Text = "等待测试";
             this.ResultLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -262,6 +213,66 @@
             this.ClosePictureBox.Size = new System.Drawing.Size(100, 39);
             this.ClosePictureBox.TabIndex = 6;
             this.ClosePictureBox.TabStop = false;
+            // 
+            // StartStopButton
+            // 
+            this.StartStopButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.StartStopButton.Location = new System.Drawing.Point(853, 48);
+            this.StartStopButton.Name = "StartStopButton";
+            this.StartStopButton.Size = new System.Drawing.Size(144, 61);
+            this.StartStopButton.TabIndex = 7;
+            this.StartStopButton.Text = "开始";
+            this.StartStopButton.UseVisualStyleBackColor = true;
+            // 
+            // ColumnIndex
+            // 
+            this.ColumnIndex.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.ColumnIndex.DefaultCellStyle = dataGridViewCellStyle2;
+            this.ColumnIndex.HeaderText = "序号";
+            this.ColumnIndex.Name = "ColumnIndex";
+            this.ColumnIndex.ReadOnly = true;
+            this.ColumnIndex.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // ColumnName
+            // 
+            this.ColumnName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.ColumnName.DefaultCellStyle = dataGridViewCellStyle3;
+            this.ColumnName.HeaderText = "名称";
+            this.ColumnName.Name = "ColumnName";
+            this.ColumnName.ReadOnly = true;
+            this.ColumnName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // ColumnProgress
+            // 
+            this.ColumnProgress.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.ColumnProgress.DefaultCellStyle = dataGridViewCellStyle4;
+            this.ColumnProgress.HeaderText = "进度";
+            this.ColumnProgress.Name = "ColumnProgress";
+            this.ColumnProgress.ReadOnly = true;
+            this.ColumnProgress.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            // 
+            // ColumnResult
+            // 
+            this.ColumnResult.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.ColumnResult.DefaultCellStyle = dataGridViewCellStyle5;
+            this.ColumnResult.HeaderText = "结果";
+            this.ColumnResult.Name = "ColumnResult";
+            this.ColumnResult.ReadOnly = true;
+            this.ColumnResult.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // ColumnTime
+            // 
+            this.ColumnTime.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.ColumnTime.DefaultCellStyle = dataGridViewCellStyle6;
+            this.ColumnTime.HeaderText = "时间";
+            this.ColumnTime.Name = "ColumnTime";
+            this.ColumnTime.ReadOnly = true;
+            this.ColumnTime.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // MainForm
             // 
@@ -306,9 +317,10 @@
         private System.Windows.Forms.TableLayoutPanel CountTableLayoutPanel;
         private System.Windows.Forms.PictureBox UserPictureBox;
         private System.Windows.Forms.PictureBox ClosePictureBox;
+        private System.Windows.Forms.Button StartStopButton;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnIndex;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnProgress;
+        private View.DataGridViewProgressBarCell.DataGridViewProgressBarColumn ColumnProgress;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnResult;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnTime;
     }
