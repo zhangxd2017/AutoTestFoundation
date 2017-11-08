@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace AutoTestFoundation
+namespace AutoTestFoundation.UI
 {
-    public partial class Form1 : Form
+    public partial class LogoutForm : Form
     {
-        public Form1()
+        public LogoutForm()
         {
             InitializeComponent();
         }
