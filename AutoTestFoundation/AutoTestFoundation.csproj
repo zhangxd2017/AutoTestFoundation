@@ -165,6 +165,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="icon.ico" />
+    <None Include="resource\close_focus.png" />
+    <None Include="resource\close.png" />
+    <None Include="resource\user.png" />
+    <None Include="resource\admin.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Control\Camera\" />

@@ -57,9 +57,9 @@
             this.TotalLabel = new System.Windows.Forms.Label();
             this.PercentLabel = new System.Windows.Forms.Label();
             this.UserPictureBox = new System.Windows.Forms.PictureBox();
-            this.ClosePictureBox = new System.Windows.Forms.PictureBox();
             this.StartStopButton = new System.Windows.Forms.Button();
             this.SNLabel = new System.Windows.Forms.Label();
+            this.ClosePictureBox = new System.Windows.Forms.PictureBox();
             this.dataGridViewProgressBarColumn1 = new AutoTestFoundation.View.DataGridViewProgressBarCell.DataGridViewProgressBarColumn();
             this.TestTimer = new System.Windows.Forms.Timer(this.components);
             this.MainTableLayoutPanel.SuspendLayout();
@@ -85,9 +85,9 @@
             this.MainTableLayoutPanel.Controls.Add(this.ResultLabel, 0, 4);
             this.MainTableLayoutPanel.Controls.Add(this.CountTableLayoutPanel, 2, 4);
             this.MainTableLayoutPanel.Controls.Add(this.UserPictureBox, 0, 0);
-            this.MainTableLayoutPanel.Controls.Add(this.ClosePictureBox, 3, 0);
             this.MainTableLayoutPanel.Controls.Add(this.StartStopButton, 3, 1);
             this.MainTableLayoutPanel.Controls.Add(this.SNLabel, 0, 3);
+            this.MainTableLayoutPanel.Controls.Add(this.ClosePictureBox, 3, 0);
             this.MainTableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.MainTableLayoutPanel.Location = new System.Drawing.Point(5, 5);
             this.MainTableLayoutPanel.Name = "MainTableLayoutPanel";
@@ -342,22 +342,16 @@
             // UserPictureBox
             // 
             this.UserPictureBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.UserPictureBox.Location = new System.Drawing.Point(3, 3);
+            this.UserPictureBox.Image = global::AutoTestFoundation.Properties.Resources.user;
+            this.UserPictureBox.Location = new System.Drawing.Point(20, 20);
+            this.UserPictureBox.Margin = new System.Windows.Forms.Padding(20);
             this.UserPictureBox.Name = "UserPictureBox";
             this.MainTableLayoutPanel.SetRowSpan(this.UserPictureBox, 2);
-            this.UserPictureBox.Size = new System.Drawing.Size(144, 116);
+            this.UserPictureBox.Size = new System.Drawing.Size(110, 82);
+            this.UserPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.UserPictureBox.TabIndex = 5;
             this.UserPictureBox.TabStop = false;
             this.UserPictureBox.Click += new System.EventHandler(this.UserPictureBox_Click);
-            // 
-            // ClosePictureBox
-            // 
-            this.ClosePictureBox.Dock = System.Windows.Forms.DockStyle.Right;
-            this.ClosePictureBox.Location = new System.Drawing.Point(897, 3);
-            this.ClosePictureBox.Name = "ClosePictureBox";
-            this.ClosePictureBox.Size = new System.Drawing.Size(100, 54);
-            this.ClosePictureBox.TabIndex = 6;
-            this.ClosePictureBox.TabStop = false;
             // 
             // StartStopButton
             // 
@@ -385,6 +379,19 @@
             this.SNLabel.TabIndex = 8;
             this.SNLabel.Text = "当前测试：";
             this.SNLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // ClosePictureBox
+            // 
+            this.ClosePictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.ClosePictureBox.Image = global::AutoTestFoundation.Properties.Resources.close;
+            this.ClosePictureBox.Location = new System.Drawing.Point(947, 3);
+            this.ClosePictureBox.Name = "ClosePictureBox";
+            this.ClosePictureBox.Size = new System.Drawing.Size(50, 50);
+            this.ClosePictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.ClosePictureBox.TabIndex = 6;
+            this.ClosePictureBox.TabStop = false;
+            this.ClosePictureBox.MouseEnter += new System.EventHandler(this.ClosePictureBox_MouseEnter);
+            this.ClosePictureBox.MouseLeave += new System.EventHandler(this.ClosePictureBox_MouseLeave);
             // 
             // dataGridViewProgressBarColumn1
             // 
@@ -440,7 +447,6 @@
         private System.Windows.Forms.Label ResultLabel;
         private System.Windows.Forms.TableLayoutPanel CountTableLayoutPanel;
         private System.Windows.Forms.PictureBox UserPictureBox;
-        private System.Windows.Forms.PictureBox ClosePictureBox;
         private System.Windows.Forms.Button StartStopButton;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnIndex;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnName;
@@ -456,6 +462,7 @@
         private System.Windows.Forms.Label TotalLabel;
         private System.Windows.Forms.Label PercentLabel;
         private System.Windows.Forms.Label SNLabel;
+        private System.Windows.Forms.PictureBox ClosePictureBox;
     }
 }
 

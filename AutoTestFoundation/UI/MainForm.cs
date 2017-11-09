@@ -156,6 +156,18 @@ namespace AutoTestFoundation
         {
             UpdateTime(new object[] {DateTime.Now });
         }
+
+        private void ClosePictureBox_MouseEnter(object sender, EventArgs e)
+        {
+            PictureBox pictureBox = (PictureBox)sender;
+            pictureBox.Image = Properties.Resources.close_focus;
+        }
+
+        private void ClosePictureBox_MouseLeave(object sender, EventArgs e)
+        {
+            PictureBox pictureBox = (PictureBox)sender;
+            pictureBox.Image = Properties.Resources.close;
+        }
         #endregion
 
         #region 自定义方法
@@ -462,6 +474,8 @@ namespace AutoTestFoundation
                 PercentLabel.ForeColor = Color.Red;
             }
         }
+
+        
 
         private void OnStart()
         {
