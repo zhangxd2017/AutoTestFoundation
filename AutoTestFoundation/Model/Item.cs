@@ -1,7 +1,7 @@
 ﻿
 namespace AutoTestFoundation.Model
 {
-    class Item
+    public class Item
     {
         public int Index { get; set; }
 

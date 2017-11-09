@@ -71,6 +71,7 @@
   <ItemGroup>
     <Compile Include="Constant\MouseDirection.cs" />
     <Compile Include="Constant\ResultCode.cs" />
+    <Compile Include="Constant\StateCode.cs" />
     <Compile Include="Constant\WindowMessage.cs" />
     <Compile Include="DataBase\SQLiteColumn.cs" />
     <Compile Include="DataBase\SQLiteColumnList.cs" />
@@ -140,6 +141,9 @@
     </EmbeddedResource>
     <None Include="Config\Application.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="digital-7.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

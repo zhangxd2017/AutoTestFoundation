@@ -7,6 +7,10 @@ using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using AutoTestFoundation.Constant;
 using AutoTestFoundation.View;
+using System.Threading;
+using System.Drawing;
+using AutoTestFoundation.Util;
+using System.Drawing.Text;
 
 namespace AutoTestFoundation
 {
@@ -17,8 +21,8 @@ namespace AutoTestFoundation
         [DllImport("user32.dll")]
         public static extern bool SendMessage(IntPtr hwnd, int wMsg, int wParam, int lParam);
 
-        public delegate void DoInMainThread();
-
+        public delegate void DoInMainThread(object[] objs);
+        public delegate int DoTest(Item item);
         #region 全局变量
 
         private bool isMouseDown = false;
@@ -26,11 +30,24 @@ namespace AutoTestFoundation
 
         private int titleClickCount = 0;
         private System.Threading.Timer titleClickTimer = null;
+
+        private const int TEST_INTERVAL = 100;
+
+        List<Item> items = new List<Item>();
+
+        private bool stopOnFail = true;
+
+        private PrivateFontCollection pfc;
+
+        private DateTime testStartTime;
         #endregion
 
 
         public MainForm()
         {
+            string timeFontPath = PathUtil.CurrentPath + "digital-7.ttf";
+            pfc = new PrivateFontCollection();
+            pfc.AddFontFile(timeFontPath);
             InitializeComponent();
         }
 
@@ -91,6 +108,11 @@ namespace AutoTestFoundation
             //设定好方向后，调用下面方法，改变窗体大小  
             ResizeWindow();
         }
+
+        private void MainForm_SizeChanged(object sender, EventArgs e)
+        {
+            InitView();
+        }
         #endregion
 
         #region 控件事件
@@ -120,15 +142,37 @@ namespace AutoTestFoundation
             }
             titleClickCount++;
         }
+
+        private void StartStopButton_Click(object sender, EventArgs e)
+        {
+            OnTest();
+        }
+
+        private void TestTimer_Tick(object sender, EventArgs e)
+        {
+            UpdateTime(new object[] {DateTime.Now });
+        }
         #endregion
+
+        #region 自定义方法
+        private void InitView()
+        {
+            //改变控件字体大小
+            TitleLabel.Font = new Font(TitleLabel.Font.FontFamily, TitleLabel.Height / 4);
+            ResultLabel.Font = new Font(ResultLabel.Font.FontFamily, ResultLabel.Height / 4);
+            TimeLabel.Font = new Font(pfc.Families[0], TimeLabel.Height / 2);
+        }
+
 
         private void InitDataGrid()
         {
-            List<Item> items = ItemManager.GetItemManager().GetItems();
-            if (items.Count > 0)
+            List<Item> tmpItems = ItemManager.GetItemManager().GetItems();
+            if (tmpItems.Count > 0)
             {
-                foreach (Item item in items)
+                items.Clear();
+                foreach (Item item in tmpItems)
                 {
+                    items.Add(item);
                     DataGridViewRow viewRow = new DataGridViewRow();
                     //序号
                     DataGridViewTextBoxCell indexCell = new DataGridViewTextBoxCell();
@@ -140,7 +184,7 @@ namespace AutoTestFoundation
                     viewRow.Cells.Add(nameCell);
                     //进度
                     DataGridViewProgressBarCell progressCell = new DataGridViewProgressBarCell();
-                    progressCell.Value = 40;
+                    progressCell.Value = 0;
                     viewRow.Cells.Add(progressCell);
                     //结果
                     DataGridViewTextBoxCell resultCell = new DataGridViewTextBoxCell();
@@ -162,11 +206,11 @@ namespace AutoTestFoundation
         {
             if (titleClickCount > 1)
             {
-                ChangeWindow();
+                ChangeWindow(new object[] { });
             }
             else
             {
-                MoveWindow();
+                MoveWindow(new object[] { });
             }
             titleClickCount = 0;
             if (titleClickTimer != null)
@@ -176,7 +220,7 @@ namespace AutoTestFoundation
             }
         }
 
-        private void MoveWindow()
+        private void MoveWindow(object[] objs)
         {
             if (InvokeRequired)
             {
@@ -187,7 +231,7 @@ namespace AutoTestFoundation
             SendMessage(this.Handle, WindowMessage.WM_SYSCOMMAND, WindowMessage.SC_MOVE + WindowMessage.HTCAPTION, 0);
         }
 
-        private void ChangeWindow()
+        private void ChangeWindow(object[] objs)
         {
             if (InvokeRequired)
             {
@@ -233,13 +277,168 @@ namespace AutoTestFoundation
             else
                 this.Cursor = Cursors.Arrow;
         }
-
+        #endregion
 
         #region 测试核心方法
 
+        private int OnItemTest(Item item)
+        {
+            Console.WriteLine("OnItemTest" + Environment.CurrentManagedThreadId);
+            Thread.Sleep(2000);
+            return 1;
+        }
+
         private void OnTest()
         {
+            bool allResult = true;
+            OnStart();
+            for (int i = 0; i < items.Count; i++)
+            {
+                DateTime startTime = DateTime.Now;
+                MainDataGridView.Rows[i].Selected = true;
+                if (i > items.Count / 4)
+                {
+                    MainDataGridView.FirstDisplayedScrollingRowIndex = i - items.Count / 4;
+                }
+                int result = TestItemTest(items[i], i);
+                TimeSpan ts = DateTime.Now - startTime;
+                UpdateResult(i, result == ResultCode.RESULT_SUCCESS, string.Format("{0:00}:{1:00}.{2:000}", ts.Minutes, ts.Seconds, ts.Milliseconds));
+                if (result != ResultCode.RESULT_SUCCESS)
+                {
+                    allResult = false;
+                    if (stopOnFail)
+                        break;
+                }
+            }
+            OnEnd(allResult);
+        }
 
+        private int TestItemTest(Item item, int index)
+        {
+            int result = ResultCode.RESULT_TIME_OUT;
+            int maxCount = item.TimeOut / TEST_INTERVAL;
+            for (int i = 0; i < item.RepeatCount; i++)
+            {
+                int count = 0;
+                UpdateProgress(index, 0);
+                DoTest doTest = OnItemTest;
+                IAsyncResult asyncResult = doTest.BeginInvoke(item, null, null);
+                while (!asyncResult.AsyncWaitHandle.WaitOne(TEST_INTERVAL, false))
+                {
+                    if (count++ >= maxCount)
+                    {
+                        UpdateProgress(index, 100);
+                        return result;
+                    }
+                    UpdateProgress(index, count * 100 / maxCount);
+                    Application.DoEvents();
+                }
+                result = doTest.EndInvoke(asyncResult);
+                if (result == ResultCode.RESULT_SUCCESS)
+                {
+                    break;
+                }
+            }
+            UpdateProgress(index, 100);
+            return result;
+        }
+
+        private void UpdateProgress(int index, int value)
+        {
+            DataGridViewProgressBarCell cell = (DataGridViewProgressBarCell)MainDataGridView.Rows[index].Cells[2];
+            cell.Value = value;
+        }
+
+        private void UpdateResult(int index, bool success, string time)
+        {
+            MainDataGridView.ClearSelection();
+            DataGridViewTextBoxCell indexCell = (DataGridViewTextBoxCell)MainDataGridView.Rows[index].Cells[0];
+            DataGridViewTextBoxCell nameCell = (DataGridViewTextBoxCell)MainDataGridView.Rows[index].Cells[1];
+            DataGridViewTextBoxCell resultCell = (DataGridViewTextBoxCell)MainDataGridView.Rows[index].Cells[3];
+            DataGridViewTextBoxCell timeCell = (DataGridViewTextBoxCell)MainDataGridView.Rows[index].Cells[4];
+            if (success)
+            {
+                indexCell.Style.ForeColor = Color.Blue;
+                nameCell.Style.ForeColor = Color.Blue;
+                resultCell.Value = "成功";
+                resultCell.Style.ForeColor = Color.Blue;
+                timeCell.Value = time;
+                timeCell.Style.ForeColor = Color.Blue;
+            }
+            else
+            {
+                indexCell.Style.ForeColor = Color.Red;
+                nameCell.Style.ForeColor = Color.Red;
+                resultCell.Value = "失败";
+                resultCell.Style.ForeColor = Color.Red;
+                timeCell.Value = time;
+                timeCell.Style.ForeColor = Color.Red;
+            }
+        }
+
+        private void UpdateState(int state)
+        {
+            switch (state)
+            {
+                case StateCode.STATE_TESTING:
+                    ResultLabel.Text = "测试中";
+                    ResultLabel.BackColor = Color.Blue;
+                    break;
+                case StateCode.STATE_PASS:
+                    ResultLabel.Text = "成功";
+                    ResultLabel.BackColor = Color.Green;
+                    break;
+                case StateCode.STATE_FAIL:
+                    ResultLabel.Text = "失败";
+                    ResultLabel.BackColor = Color.Red;
+                    break;
+            }
+        }
+
+        private void UpdateTime(object[] objs)
+        {
+            if (InvokeRequired)
+            {
+                Invoke(new DoInMainThread(UpdateTime));
+                return;
+            }
+            if (objs.Length > 0 && objs[0] is DateTime)
+            {
+                DateTime dateTime = (DateTime)objs[0];
+                TimeSpan ts = dateTime - testStartTime;
+                TimeLabel.Text = string.Format("{0:00} : {1:00} . {2:000}", ts.Minutes, ts.Seconds, ts.Milliseconds);
+            }
+        }
+
+        private void OnStart()
+        {
+            UpdateState(StateCode.STATE_TESTING);
+            for (int i = 0; i < MainDataGridView.Rows.Count; i++)
+            {
+                DataGridViewTextBoxCell indexCell = (DataGridViewTextBoxCell)MainDataGridView.Rows[i].Cells[0];
+                DataGridViewTextBoxCell nameCell = (DataGridViewTextBoxCell)MainDataGridView.Rows[i].Cells[1];
+                DataGridViewProgressBarCell progressCell = (DataGridViewProgressBarCell)MainDataGridView.Rows[i].Cells[2];
+                DataGridViewTextBoxCell resultCell = (DataGridViewTextBoxCell)MainDataGridView.Rows[i].Cells[3];
+                DataGridViewTextBoxCell timeCell = (DataGridViewTextBoxCell)MainDataGridView.Rows[i].Cells[4];
+                indexCell.Style.ForeColor = SystemColors.WindowText;
+                nameCell.Style.ForeColor = SystemColors.WindowText;
+                progressCell.Value = 0;
+                resultCell.Value = "";
+                resultCell.Style.ForeColor = SystemColors.WindowText;
+                timeCell.Value = "";
+                timeCell.Style.ForeColor = SystemColors.WindowText;
+            }
+            MainDataGridView.FirstDisplayedScrollingRowIndex = 0;
+            testStartTime = DateTime.Now;
+            TimeLabel.Text = string.Format("{0:00} : {1:00} . {2:000}", 0, 0, 0);
+            TestTimer.Enabled = true;
+        }
+
+        private void OnEnd(bool success)
+        {
+            UpdateState(success ? StateCode.STATE_PASS : StateCode.STATE_FAIL);
+            TestTimer.Enabled = false;
+            UpdateTime(new object[] { DateTime.Now });
         }
 
 
