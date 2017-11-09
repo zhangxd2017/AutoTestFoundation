@@ -40,6 +40,8 @@ namespace AutoTestFoundation
         private PrivateFontCollection pfc;
 
         private DateTime testStartTime;
+
+        private int passCount = 0, failCount = 0, totalCount = 0;
         #endregion
 
 
@@ -160,7 +162,11 @@ namespace AutoTestFoundation
             //改变控件字体大小
             TitleLabel.Font = new Font(TitleLabel.Font.FontFamily, TitleLabel.Height / 4);
             ResultLabel.Font = new Font(ResultLabel.Font.FontFamily, ResultLabel.Height / 4);
-            TimeLabel.Font = new Font(pfc.Families[0], TimeLabel.Height / 2);
+            TimeLabel.Font = new Font(pfc.Families[0], TimeLabel.Height / 4);
+            PassLabel.Font = new Font(PassLabel.Font.FontFamily, PassLabel.Height / 4);
+            FailLabel.Font = new Font(FailLabel.Font.FontFamily, FailLabel.Height / 4);
+            TotalLabel.Font = new Font(TotalLabel.Font.FontFamily, TotalLabel.Height / 4);
+            PercentLabel.Font = new Font(PercentLabel.Font.FontFamily, PercentLabel.Height / 4);
         }
 
 
@@ -172,27 +178,30 @@ namespace AutoTestFoundation
                 items.Clear();
                 foreach (Item item in tmpItems)
                 {
-                    items.Add(item);
-                    DataGridViewRow viewRow = new DataGridViewRow();
-                    //序号
-                    DataGridViewTextBoxCell indexCell = new DataGridViewTextBoxCell();
-                    indexCell.Value = item.Index;
-                    viewRow.Cells.Add(indexCell);
-                    //名称
-                    DataGridViewTextBoxCell nameCell = new DataGridViewTextBoxCell();
-                    nameCell.Value = item.ItemText;
-                    viewRow.Cells.Add(nameCell);
-                    //进度
-                    DataGridViewProgressBarCell progressCell = new DataGridViewProgressBarCell();
-                    progressCell.Value = 0;
-                    viewRow.Cells.Add(progressCell);
-                    //结果
-                    DataGridViewTextBoxCell resultCell = new DataGridViewTextBoxCell();
-                    viewRow.Cells.Add(resultCell);
-                    //时间
-                    DataGridViewTextBoxCell timeCell = new DataGridViewTextBoxCell();
-                    viewRow.Cells.Add(timeCell);
-                    MainDataGridView.Rows.Add(viewRow);
+                    if (item.NeedTest)
+                    {
+                        items.Add(item);
+                        DataGridViewRow viewRow = new DataGridViewRow();
+                        //序号
+                        DataGridViewTextBoxCell indexCell = new DataGridViewTextBoxCell();
+                        indexCell.Value = item.Index;
+                        viewRow.Cells.Add(indexCell);
+                        //名称
+                        DataGridViewTextBoxCell nameCell = new DataGridViewTextBoxCell();
+                        nameCell.Value = item.ItemText;
+                        viewRow.Cells.Add(nameCell);
+                        //进度
+                        DataGridViewProgressBarCell progressCell = new DataGridViewProgressBarCell();
+                        progressCell.Value = 0;
+                        viewRow.Cells.Add(progressCell);
+                        //结果
+                        DataGridViewTextBoxCell resultCell = new DataGridViewTextBoxCell();
+                        viewRow.Cells.Add(resultCell);
+                        //时间
+                        DataGridViewTextBoxCell timeCell = new DataGridViewTextBoxCell();
+                        viewRow.Cells.Add(timeCell);
+                        MainDataGridView.Rows.Add(viewRow);
+                    }
                 }
                 MainDataGridView.ClearSelection();
             }
@@ -281,11 +290,13 @@ namespace AutoTestFoundation
 
         #region 测试核心方法
 
+        Random random = new Random();
+
         private int OnItemTest(Item item)
         {
             Console.WriteLine("OnItemTest" + Environment.CurrentManagedThreadId);
-            Thread.Sleep(2000);
-            return 1;
+            Thread.Sleep(1000);
+            return random.Next(99) > 0 ? 0 : 1;
         }
 
         private void OnTest()
@@ -410,6 +421,31 @@ namespace AutoTestFoundation
             }
         }
 
+        private void UpdatePercent()
+        {
+            PassLabel.Text = "成功 : " + passCount;
+            FailLabel.Text = "失败 : " + failCount;
+            TotalLabel.Text = "总数 : " + totalCount;
+            int percent = passCount * 100 / totalCount;
+            PercentLabel.Text = percent + "%";
+            if (percent > 95)
+            {
+                PercentLabel.ForeColor = Color.LightGreen;
+            }
+            else if (percent > 90)
+            {
+                PercentLabel.ForeColor = Color.YellowGreen;
+            }
+            else if (percent > 85)
+            {
+                PercentLabel.ForeColor = Color.Orange;
+            }
+            else
+            {
+                PercentLabel.ForeColor = Color.Red;
+            }
+        }
+
         private void OnStart()
         {
             UpdateState(StateCode.STATE_TESTING);
@@ -439,9 +475,13 @@ namespace AutoTestFoundation
             UpdateState(success ? StateCode.STATE_PASS : StateCode.STATE_FAIL);
             TestTimer.Enabled = false;
             UpdateTime(new object[] { DateTime.Now });
+            totalCount++;
+            if (success)
+                passCount++;
+            else
+                failCount++;
+            UpdatePercent();
         }
-
-
         #endregion
     }
 }

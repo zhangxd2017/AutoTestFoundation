@@ -52,6 +52,10 @@
             this.ResultLabel = new System.Windows.Forms.Label();
             this.CountTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.TimeLabel = new System.Windows.Forms.Label();
+            this.PassLabel = new System.Windows.Forms.Label();
+            this.FailLabel = new System.Windows.Forms.Label();
+            this.TotalLabel = new System.Windows.Forms.Label();
+            this.PercentLabel = new System.Windows.Forms.Label();
             this.UserPictureBox = new System.Windows.Forms.PictureBox();
             this.ClosePictureBox = new System.Windows.Forms.PictureBox();
             this.StartStopButton = new System.Windows.Forms.Button();
@@ -230,7 +234,6 @@
             this.MainTableLayoutPanel.SetRowSpan(this.TitleLabel, 2);
             this.TitleLabel.Size = new System.Drawing.Size(694, 122);
             this.TitleLabel.TabIndex = 2;
-            this.TitleLabel.Text = "标题";
             this.TitleLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.TitleLabel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.TitleLabel_MouseDown);
             // 
@@ -251,17 +254,23 @@
             // 
             // CountTableLayoutPanel
             // 
-            this.CountTableLayoutPanel.ColumnCount = 2;
+            this.CountTableLayoutPanel.ColumnCount = 3;
             this.MainTableLayoutPanel.SetColumnSpan(this.CountTableLayoutPanel, 2);
             this.CountTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.CountTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.CountTableLayoutPanel.Controls.Add(this.TimeLabel, 1, 0);
+            this.CountTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.CountTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.CountTableLayoutPanel.Controls.Add(this.TimeLabel, 0, 0);
+            this.CountTableLayoutPanel.Controls.Add(this.PassLabel, 1, 0);
+            this.CountTableLayoutPanel.Controls.Add(this.FailLabel, 1, 1);
+            this.CountTableLayoutPanel.Controls.Add(this.TotalLabel, 1, 2);
+            this.CountTableLayoutPanel.Controls.Add(this.PercentLabel, 2, 0);
             this.CountTableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.CountTableLayoutPanel.Location = new System.Drawing.Point(603, 629);
             this.CountTableLayoutPanel.Name = "CountTableLayoutPanel";
-            this.CountTableLayoutPanel.RowCount = 2;
-            this.CountTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.CountTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.CountTableLayoutPanel.RowCount = 3;
+            this.CountTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.CountTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.CountTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.CountTableLayoutPanel.Size = new System.Drawing.Size(394, 88);
             this.CountTableLayoutPanel.TabIndex = 4;
             // 
@@ -271,12 +280,62 @@
             this.TimeLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.TimeLabel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TimeLabel.ForeColor = System.Drawing.Color.White;
-            this.TimeLabel.Location = new System.Drawing.Point(200, 0);
+            this.TimeLabel.Location = new System.Drawing.Point(3, 0);
             this.TimeLabel.Name = "TimeLabel";
-            this.TimeLabel.Size = new System.Drawing.Size(191, 44);
+            this.CountTableLayoutPanel.SetRowSpan(this.TimeLabel, 3);
+            this.TimeLabel.Size = new System.Drawing.Size(191, 88);
             this.TimeLabel.TabIndex = 0;
             this.TimeLabel.Text = "00 : 00 : 000";
             this.TimeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // PassLabel
+            // 
+            this.PassLabel.AutoSize = true;
+            this.PassLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.PassLabel.ForeColor = System.Drawing.Color.LightGreen;
+            this.PassLabel.Location = new System.Drawing.Point(200, 0);
+            this.PassLabel.Name = "PassLabel";
+            this.PassLabel.Size = new System.Drawing.Size(92, 29);
+            this.PassLabel.TabIndex = 1;
+            this.PassLabel.Text = "成功 : 0";
+            this.PassLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // FailLabel
+            // 
+            this.FailLabel.AutoSize = true;
+            this.FailLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.FailLabel.ForeColor = System.Drawing.Color.OrangeRed;
+            this.FailLabel.Location = new System.Drawing.Point(200, 29);
+            this.FailLabel.Name = "FailLabel";
+            this.FailLabel.Size = new System.Drawing.Size(92, 29);
+            this.FailLabel.TabIndex = 2;
+            this.FailLabel.Text = "失败 : 0";
+            this.FailLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // TotalLabel
+            // 
+            this.TotalLabel.AutoSize = true;
+            this.TotalLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TotalLabel.ForeColor = System.Drawing.Color.White;
+            this.TotalLabel.Location = new System.Drawing.Point(200, 58);
+            this.TotalLabel.Name = "TotalLabel";
+            this.TotalLabel.Size = new System.Drawing.Size(92, 30);
+            this.TotalLabel.TabIndex = 3;
+            this.TotalLabel.Text = "总数 : 0";
+            this.TotalLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // PercentLabel
+            // 
+            this.PercentLabel.AutoSize = true;
+            this.PercentLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.PercentLabel.ForeColor = System.Drawing.Color.White;
+            this.PercentLabel.Location = new System.Drawing.Point(298, 0);
+            this.PercentLabel.Name = "PercentLabel";
+            this.CountTableLayoutPanel.SetRowSpan(this.PercentLabel, 3);
+            this.PercentLabel.Size = new System.Drawing.Size(93, 88);
+            this.PercentLabel.TabIndex = 4;
+            this.PercentLabel.Text = "100%";
+            this.PercentLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // UserPictureBox
             // 
@@ -378,6 +437,10 @@
         private System.Windows.Forms.RichTextBox LogTextBox;
         private System.Windows.Forms.Label TimeLabel;
         private System.Windows.Forms.Timer TestTimer;
+        private System.Windows.Forms.Label PassLabel;
+        private System.Windows.Forms.Label FailLabel;
+        private System.Windows.Forms.Label TotalLabel;
+        private System.Windows.Forms.Label PercentLabel;
     }
 }
 
