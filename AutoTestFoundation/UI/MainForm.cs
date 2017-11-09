@@ -42,6 +42,8 @@ namespace AutoTestFoundation
         private DateTime testStartTime;
 
         private int passCount = 0, failCount = 0, totalCount = 0;
+
+        private string logFilePath = null;
         #endregion
 
 
@@ -313,7 +315,15 @@ namespace AutoTestFoundation
                 }
                 int result = TestItemTest(items[i], i);
                 TimeSpan ts = DateTime.Now - startTime;
-                UpdateResult(i, result == ResultCode.RESULT_SUCCESS, string.Format("{0:00}:{1:00}.{2:000}", ts.Minutes, ts.Seconds, ts.Milliseconds));
+                if (ts.Hours > 0)
+                {
+                    UpdateResult(i, result == ResultCode.RESULT_SUCCESS, string.Format("{0:00}:{1:00}.{2:000}", 59, 59, 999));
+                }
+                else
+                {
+                    UpdateResult(i, result == ResultCode.RESULT_SUCCESS, string.Format("{0:00}:{1:00}.{2:000}", ts.Minutes, ts.Seconds, ts.Milliseconds));
+                }
+                
                 if (result != ResultCode.RESULT_SUCCESS)
                 {
                     allResult = false;
@@ -417,7 +427,14 @@ namespace AutoTestFoundation
             {
                 DateTime dateTime = (DateTime)objs[0];
                 TimeSpan ts = dateTime - testStartTime;
-                TimeLabel.Text = string.Format("{0:00} : {1:00} . {2:000}", ts.Minutes, ts.Seconds, ts.Milliseconds);
+                if (ts.Hours > 0)
+                {
+                    TimeLabel.Text = string.Format("{0:00} : {1:00} . {2:000}", 59, 59, 999);
+                }
+                else
+                {
+                    TimeLabel.Text = string.Format("{0:00} : {1:00} . {2:000}", ts.Minutes, ts.Seconds, ts.Milliseconds);
+                }
             }
         }
 

@@ -115,6 +115,7 @@
     <Compile Include="UI\SplashForm.Designer.cs">
       <DependentUpon>SplashForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Util\LogUtil.cs" />
     <Compile Include="Util\PathUtil.cs" />
     <Compile Include="View\DataGridViewProgressBarCell.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">

@@ -59,6 +59,7 @@
             this.UserPictureBox = new System.Windows.Forms.PictureBox();
             this.ClosePictureBox = new System.Windows.Forms.PictureBox();
             this.StartStopButton = new System.Windows.Forms.Button();
+            this.SNLabel = new System.Windows.Forms.Label();
             this.dataGridViewProgressBarColumn1 = new AutoTestFoundation.View.DataGridViewProgressBarCell.DataGridViewProgressBarColumn();
             this.TestTimer = new System.Windows.Forms.Timer(this.components);
             this.MainTableLayoutPanel.SuspendLayout();
@@ -86,6 +87,7 @@
             this.MainTableLayoutPanel.Controls.Add(this.UserPictureBox, 0, 0);
             this.MainTableLayoutPanel.Controls.Add(this.ClosePictureBox, 3, 0);
             this.MainTableLayoutPanel.Controls.Add(this.StartStopButton, 3, 1);
+            this.MainTableLayoutPanel.Controls.Add(this.SNLabel, 0, 3);
             this.MainTableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.MainTableLayoutPanel.Location = new System.Drawing.Point(5, 5);
             this.MainTableLayoutPanel.Name = "MainTableLayoutPanel";
@@ -368,6 +370,22 @@
             this.StartStopButton.UseVisualStyleBackColor = true;
             this.StartStopButton.Click += new System.EventHandler(this.StartStopButton_Click);
             // 
+            // SNLabel
+            // 
+            this.SNLabel.AutoSize = true;
+            this.SNLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.MainTableLayoutPanel.SetColumnSpan(this.SNLabel, 2);
+            this.SNLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.SNLabel.Font = new System.Drawing.Font("宋体", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.SNLabel.ForeColor = System.Drawing.Color.White;
+            this.SNLabel.Location = new System.Drawing.Point(3, 526);
+            this.SNLabel.Margin = new System.Windows.Forms.Padding(3, 0, 3, 3);
+            this.SNLabel.Name = "SNLabel";
+            this.SNLabel.Size = new System.Drawing.Size(594, 97);
+            this.SNLabel.TabIndex = 8;
+            this.SNLabel.Text = "当前测试：";
+            this.SNLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // dataGridViewProgressBarColumn1
             // 
             this.dataGridViewProgressBarColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
@@ -399,10 +417,6 @@
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.Shown += new System.EventHandler(this.MainForm_Shown);
             this.SizeChanged += new System.EventHandler(this.MainForm_SizeChanged);
-            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseDown);
-            this.MouseLeave += new System.EventHandler(this.MainForm_MouseLeave);
-            this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseMove);
-            this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             this.MainTableLayoutPanel.ResumeLayout(false);
             this.MainTableLayoutPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MainDataGridView)).EndInit();
@@ -441,6 +455,7 @@
         private System.Windows.Forms.Label FailLabel;
         private System.Windows.Forms.Label TotalLabel;
         private System.Windows.Forms.Label PercentLabel;
+        private System.Windows.Forms.Label SNLabel;
     }
 }
 
