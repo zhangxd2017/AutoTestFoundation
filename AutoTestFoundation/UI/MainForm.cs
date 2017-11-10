@@ -122,9 +122,17 @@ namespace AutoTestFoundation
         {
             if (UserManager.GetUserManager().GetCurrentUser().IsAdmin())
             {
-                if (DialogResult.OK == new MaskForm<LogoutForm>().ShowDialog(this))
+                DialogResult result = new MaskForm<LogoutForm>().ShowDialog(this);
+                if (DialogResult.OK == result)
                 {
                     UpdateUser();
+                }
+                else if (DialogResult.Yes == result)
+                {
+                    if (DialogResult.OK == new SettingForm().ShowDialog(this))
+                    {
+                        //更新
+                    }
                 }
             }
             else
@@ -205,7 +213,7 @@ namespace AutoTestFoundation
                         viewRow.Cells.Add(indexCell);
                         //名称
                         DataGridViewTextBoxCell nameCell = new DataGridViewTextBoxCell();
-                        nameCell.Value = item.ItemText;
+                        nameCell.Value = item.ItemName;
                         viewRow.Cells.Add(nameCell);
                         //进度
                         DataGridViewProgressBarCell progressCell = new DataGridViewProgressBarCell();

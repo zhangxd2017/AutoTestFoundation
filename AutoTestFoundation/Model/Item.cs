@@ -7,8 +7,6 @@ namespace AutoTestFoundation.Model
 
         public string ItemName { get; set; }
 
-        public string ItemText { get; set; }
-
         public string ExecutablePath { get; set; }
 
         public string Parameters { get; set; }

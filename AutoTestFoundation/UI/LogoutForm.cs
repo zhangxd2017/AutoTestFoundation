@@ -32,7 +32,8 @@ namespace AutoTestFoundation.UI
 
         private void SettingButton_Click(object sender, EventArgs e)
         {
-
+            DialogResult = DialogResult.Yes;
+            Close();
         }
 
         private void LogoutButton_Click(object sender, EventArgs e)

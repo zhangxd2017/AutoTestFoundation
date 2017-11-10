@@ -113,6 +113,12 @@
     <Compile Include="UI\MaskForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="UI\SettingForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\SettingForm.Designer.cs">
+      <DependentUpon>SettingForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\SplashForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -123,6 +129,12 @@
     <Compile Include="Util\LogUtil.cs" />
     <Compile Include="Util\PathUtil.cs" />
     <Compile Include="View\DataGridViewProgressBarCell.cs" />
+    <Compile Include="View\UserTabControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="View\UserTabControl.Designer.cs">
+      <DependentUpon>UserTabControl.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -144,6 +156,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\MaskForm.resx">
       <DependentUpon>MaskForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\SettingForm.resx">
+      <DependentUpon>SettingForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\SplashForm.resx">
       <DependentUpon>SplashForm.cs</DependentUpon>
@@ -176,6 +191,14 @@
     <Content Include="MVSDK.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="resource\up_press.png" />
+    <None Include="resource\up.png" />
+    <None Include="resource\down_press.png" />
+    <None Include="resource\down.png" />
+    <None Include="resource\delete_press.png" />
+    <None Include="resource\delete.png" />
+    <None Include="resource\add_press.png" />
+    <None Include="resource\add.png" />
     <None Include="resource\close_focus.png" />
     <None Include="resource\close.png" />
     <None Include="resource\user.png" />
