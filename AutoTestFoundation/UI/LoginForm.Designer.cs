@@ -29,27 +29,128 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LoginForm));
-            this.label1 = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.LoginTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
+            this.AccountLabel = new System.Windows.Forms.Label();
+            this.PasswordLabel = new System.Windows.Forms.Label();
+            this.LoginButton = new System.Windows.Forms.Button();
+            this.CloseButton = new System.Windows.Forms.Button();
+            this.AccountTextBox = new System.Windows.Forms.TextBox();
+            this.PasswordTextBox = new System.Windows.Forms.TextBox();
+            this.TitleLabel = new System.Windows.Forms.Label();
+            this.LoginTableLayoutPanel.SuspendLayout();
             this.SuspendLayout();
             // 
-            // label1
+            // LoginTableLayoutPanel
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(112, 136);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(82, 24);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "label1";
+            this.LoginTableLayoutPanel.ColumnCount = 6;
+            this.LoginTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 5F));
+            this.LoginTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
+            this.LoginTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
+            this.LoginTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
+            this.LoginTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
+            this.LoginTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 5F));
+            this.LoginTableLayoutPanel.Controls.Add(this.AccountLabel, 1, 1);
+            this.LoginTableLayoutPanel.Controls.Add(this.PasswordLabel, 1, 2);
+            this.LoginTableLayoutPanel.Controls.Add(this.LoginButton, 1, 4);
+            this.LoginTableLayoutPanel.Controls.Add(this.CloseButton, 4, 4);
+            this.LoginTableLayoutPanel.Controls.Add(this.AccountTextBox, 3, 1);
+            this.LoginTableLayoutPanel.Controls.Add(this.PasswordTextBox, 3, 2);
+            this.LoginTableLayoutPanel.Controls.Add(this.TitleLabel, 0, 0);
+            this.LoginTableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.LoginTableLayoutPanel.Location = new System.Drawing.Point(0, 0);
+            this.LoginTableLayoutPanel.Name = "LoginTableLayoutPanel";
+            this.LoginTableLayoutPanel.RowCount = 6;
+            this.LoginTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 35F));
+            this.LoginTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 15F));
+            this.LoginTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 15F));
+            this.LoginTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 5F));
+            this.LoginTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 15F));
+            this.LoginTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 15F));
+            this.LoginTableLayoutPanel.Size = new System.Drawing.Size(458, 443);
+            this.LoginTableLayoutPanel.TabIndex = 0;
             // 
-            // pictureBox1
+            // AccountLabel
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(346, 12);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(100, 50);
-            this.pictureBox1.TabIndex = 1;
-            this.pictureBox1.TabStop = false;
+            this.AccountLabel.AutoSize = true;
+            this.AccountLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.AccountLabel.Location = new System.Drawing.Point(25, 155);
+            this.AccountLabel.Name = "AccountLabel";
+            this.AccountLabel.Size = new System.Drawing.Size(131, 66);
+            this.AccountLabel.TabIndex = 0;
+            this.AccountLabel.Text = "用户名";
+            this.AccountLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // PasswordLabel
+            // 
+            this.PasswordLabel.AutoSize = true;
+            this.PasswordLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.PasswordLabel.Location = new System.Drawing.Point(25, 221);
+            this.PasswordLabel.Name = "PasswordLabel";
+            this.PasswordLabel.Size = new System.Drawing.Size(131, 66);
+            this.PasswordLabel.TabIndex = 1;
+            this.PasswordLabel.Text = "密  码";
+            this.PasswordLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // LoginButton
+            // 
+            this.LoginTableLayoutPanel.SetColumnSpan(this.LoginButton, 2);
+            this.LoginButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.LoginButton.Location = new System.Drawing.Point(25, 312);
+            this.LoginButton.Name = "LoginButton";
+            this.LoginButton.Size = new System.Drawing.Size(176, 60);
+            this.LoginButton.TabIndex = 2;
+            this.LoginButton.Text = "确定";
+            this.LoginButton.UseVisualStyleBackColor = true;
+            this.LoginButton.Click += new System.EventHandler(this.LoginButton_Click);
+            // 
+            // CloseButton
+            // 
+            this.CloseButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.CloseButton.Location = new System.Drawing.Point(252, 312);
+            this.CloseButton.Name = "CloseButton";
+            this.CloseButton.Size = new System.Drawing.Size(177, 60);
+            this.CloseButton.TabIndex = 3;
+            this.CloseButton.Text = "关闭";
+            this.CloseButton.UseVisualStyleBackColor = true;
+            this.CloseButton.Click += new System.EventHandler(this.CloseButton_Click);
+            // 
+            // AccountTextBox
+            // 
+            this.LoginTableLayoutPanel.SetColumnSpan(this.AccountTextBox, 2);
+            this.AccountTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.AccountTextBox.Font = new System.Drawing.Font("宋体", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.AccountTextBox.Location = new System.Drawing.Point(214, 165);
+            this.AccountTextBox.Margin = new System.Windows.Forms.Padding(10);
+            this.AccountTextBox.MaxLength = 20;
+            this.AccountTextBox.Name = "AccountTextBox";
+            this.AccountTextBox.Size = new System.Drawing.Size(208, 47);
+            this.AccountTextBox.TabIndex = 4;
+            // 
+            // PasswordTextBox
+            // 
+            this.LoginTableLayoutPanel.SetColumnSpan(this.PasswordTextBox, 2);
+            this.PasswordTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.PasswordTextBox.Font = new System.Drawing.Font("宋体", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.PasswordTextBox.Location = new System.Drawing.Point(214, 231);
+            this.PasswordTextBox.Margin = new System.Windows.Forms.Padding(10);
+            this.PasswordTextBox.MaxLength = 20;
+            this.PasswordTextBox.Name = "PasswordTextBox";
+            this.PasswordTextBox.PasswordChar = '*';
+            this.PasswordTextBox.Size = new System.Drawing.Size(208, 47);
+            this.PasswordTextBox.TabIndex = 5;
+            // 
+            // TitleLabel
+            // 
+            this.TitleLabel.AutoSize = true;
+            this.LoginTableLayoutPanel.SetColumnSpan(this.TitleLabel, 6);
+            this.TitleLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TitleLabel.Font = new System.Drawing.Font("宋体", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.TitleLabel.Location = new System.Drawing.Point(3, 0);
+            this.TitleLabel.Name = "TitleLabel";
+            this.TitleLabel.Size = new System.Drawing.Size(452, 155);
+            this.TitleLabel.TabIndex = 6;
+            this.TitleLabel.Text = "登录";
+            this.TitleLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // LoginForm
             // 
@@ -57,8 +158,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(458, 443);
-            this.Controls.Add(this.pictureBox1);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.LoginTableLayoutPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "LoginForm";
@@ -66,15 +166,22 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "LoginForm";
             this.Load += new System.EventHandler(this.LoginForm_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.Shown += new System.EventHandler(this.LoginForm_Shown);
+            this.LoginTableLayoutPanel.ResumeLayout(false);
+            this.LoginTableLayoutPanel.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.TableLayoutPanel LoginTableLayoutPanel;
+        private System.Windows.Forms.Label AccountLabel;
+        private System.Windows.Forms.Label PasswordLabel;
+        private System.Windows.Forms.Button LoginButton;
+        private System.Windows.Forms.Button CloseButton;
+        private System.Windows.Forms.TextBox AccountTextBox;
+        private System.Windows.Forms.TextBox PasswordTextBox;
+        private System.Windows.Forms.Label TitleLabel;
     }
 }

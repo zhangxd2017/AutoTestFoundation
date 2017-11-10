@@ -72,17 +72,21 @@
     <Compile Include="Constant\MouseDirection.cs" />
     <Compile Include="Constant\ResultCode.cs" />
     <Compile Include="Constant\StateCode.cs" />
-    <Compile Include="Constant\WindowMessage.cs" />
+    <Compile Include="Constant\WindowsMessage.cs" />
+    <Compile Include="Control\Camera\CameraFactory.cs" />
+    <Compile Include="Control\Camera\MindVision\MVSDK.cs" />
     <Compile Include="DataBase\SQLiteColumn.cs" />
     <Compile Include="DataBase\SQLiteColumnList.cs" />
     <Compile Include="DataBase\SQLiteHelper.cs" />
     <Compile Include="DataBase\SQLiteTable.cs" />
+    <Compile Include="Manager\CameraManager.cs" />
     <Compile Include="Manager\ConfigManager.cs" />
     <Compile Include="Manager\DataBaseManager.cs" />
     <Compile Include="Manager\ItemManager.cs" />
     <Compile Include="Manager\USBManager.cs" />
     <Compile Include="Manager\UserManager.cs" />
     <Compile Include="Model\AppConfig.cs" />
+    <Compile Include="Model\CameraDevice.cs" />
     <Compile Include="Model\Item.cs" />
     <Compile Include="Model\TestConfig.cs" />
     <Compile Include="Model\User.cs" />
@@ -115,6 +119,7 @@
     <Compile Include="UI\SplashForm.Designer.cs">
       <DependentUpon>SplashForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Util\CryptoUtil.cs" />
     <Compile Include="Util\LogUtil.cs" />
     <Compile Include="Util\PathUtil.cs" />
     <Compile Include="View\DataGridViewProgressBarCell.cs" />
@@ -165,13 +170,15 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="icon.ico" />
+    <Content Include="MVSDK.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="resource\close_focus.png" />
     <None Include="resource\close.png" />
     <None Include="resource\user.png" />
     <None Include="resource\admin.png" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Control\Camera\" />
     <Folder Include="Control\Card\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

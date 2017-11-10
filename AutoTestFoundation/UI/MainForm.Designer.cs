@@ -390,6 +390,7 @@
             this.ClosePictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.ClosePictureBox.TabIndex = 6;
             this.ClosePictureBox.TabStop = false;
+            this.ClosePictureBox.Click += new System.EventHandler(this.ClosePictureBox_Click);
             this.ClosePictureBox.MouseEnter += new System.EventHandler(this.ClosePictureBox_MouseEnter);
             this.ClosePictureBox.MouseLeave += new System.EventHandler(this.ClosePictureBox_MouseLeave);
             // 

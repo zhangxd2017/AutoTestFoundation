@@ -13,6 +13,11 @@ namespace AutoTestFoundation.Model
 
         public string Password { get; set; }
 
+        public User()
+        {
+
+        }
+
         public User(string name, string password)
         {
             this.Name = name;

@@ -19,7 +19,7 @@ namespace AutoTestFoundation.UI
         private void SplashForm_Shown(object sender, EventArgs e)
         {
             //USB插入监听
-            USBManager.GetUSBManager();
+            USBManager.GetUSBManager().AddListener(CameraManager.GetCameraManager());
 
             //读取配置文件并初始化用户以及
             string appConfigPath = PathUtil.GetAppConfig();
@@ -36,6 +36,7 @@ namespace AutoTestFoundation.UI
                 {
                     ItemManager.GetItemManager().InitWithConfig(PathUtil.GetConfigPath() + application.DataBaseName);
                     ConfigManager.GetConfigManager().InitWithConfig(PathUtil.GetConfigPath() + application.DataBaseName);
+                    UserManager.GetUserManager().InitWithConfig(PathUtil.GetConfigPath() + application.DataBaseName);
                 }
                 this.DialogResult = DialogResult.OK;
                 for (int i = 0; i < 10; i++)

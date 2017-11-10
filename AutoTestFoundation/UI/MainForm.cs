@@ -46,7 +46,6 @@ namespace AutoTestFoundation
         private string logFilePath = null;
         #endregion
 
-
         public MainForm()
         {
             string timeFontPath = PathUtil.CurrentPath + "digital-7.ttf";
@@ -58,7 +57,6 @@ namespace AutoTestFoundation
         #region 窗口事件
         private void MainForm_Load(object sender, EventArgs e)
         {
-            //用户头像
             //标题栏
         }
 
@@ -168,6 +166,11 @@ namespace AutoTestFoundation
             PictureBox pictureBox = (PictureBox)sender;
             pictureBox.Image = Properties.Resources.close;
         }
+
+        private void ClosePictureBox_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
         #endregion
 
         #region 自定义方法
@@ -225,6 +228,18 @@ namespace AutoTestFoundation
             }
         }
 
+        private void UpdateUser()
+        {
+            if (UserManager.GetUserManager().GetCurrentUser().IsAdmin())
+            {
+                UserPictureBox.Image = Properties.Resources.admin;
+            }
+            else
+            {
+                UserPictureBox.Image = Properties.Resources.user;
+            }
+        }
+
         void TitleClickExecute(object obj)
         {
             if (titleClickCount > 1)
@@ -251,7 +266,7 @@ namespace AutoTestFoundation
                 return;
             }
             ReleaseCapture();
-            SendMessage(this.Handle, WindowMessage.WM_SYSCOMMAND, WindowMessage.SC_MOVE + WindowMessage.HTCAPTION, 0);
+            SendMessage(this.Handle, WindowsMessage.WM_SYSCOMMAND, WindowsMessage.SC_MOVE + WindowsMessage.HTCAPTION, 0);
         }
 
         private void ChangeWindow(object[] objs)
@@ -475,8 +490,6 @@ namespace AutoTestFoundation
             }
         }
 
-        
-
         private void OnStart()
         {
             UpdateState(StateCode.STATE_TESTING);
@@ -513,6 +526,8 @@ namespace AutoTestFoundation
                 failCount++;
             UpdatePercent();
         }
+
+        
         #endregion
     }
 }

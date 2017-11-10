@@ -1,14 +1,20 @@
 ﻿using AutoTestFoundation.Model;
+using AutoTestFoundation.Util;
+using System.Collections.Generic;
 
 namespace AutoTestFoundation.Manager
 {
     class UserManager
     {
+        public static string DATABASE_TABLE_USER_NAME = "user";
+
         private static UserManager instance = null;
 
         private static readonly object locker = new object();
 
         private User user;
+
+        private List<User> users = new List<User>();
 
         private UserManager()
         {
@@ -34,10 +40,66 @@ namespace AutoTestFoundation.Manager
             return instance;
         }
 
+        public void SetCurrentUser(User currentUser)
+        {
+            user = currentUser;
+        }
+
         public User GetCurrentUser()
         {
             return user;
         }
 
+        public void InitWithConfig(string path)
+        {
+            lock (locker)
+            {
+                DataBaseManager.GetInstance().Init(path);
+                List<User> dbUser = DataBaseManager.GetInstance().GetDatas<User>(DATABASE_TABLE_USER_NAME);
+                DataBaseManager.GetInstance().Deinit();
+                for (int i = 0; i < dbUser.Count; i++)
+                {
+                    users.Add(dbUser[i]);
+                }
+            }
+        }
+
+        public List<User> GetUsers()
+        {
+            lock (locker)
+            {
+                return users;
+            }
+        }
+
+        public bool ContainsUserName(string username)
+        {
+            lock (locker)
+            {
+                foreach (User user in users)
+                {
+                    if (user.Name.Equals(username))
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            }
+        }
+
+        public bool ValidateUserNameAndPassword(string username, string password)
+        {
+            lock (locker)
+            {
+                foreach (User user in users)
+                {
+                    if (user.Name.Equals(username) && user.Password.Equals(CryptoUtil.MD5String(password)))
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            }
+        }
     }
 }
