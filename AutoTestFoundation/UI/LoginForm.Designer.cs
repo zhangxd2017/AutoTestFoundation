@@ -66,16 +66,16 @@
             this.LoginTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 5F));
             this.LoginTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 15F));
             this.LoginTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 15F));
-            this.LoginTableLayoutPanel.Size = new System.Drawing.Size(458, 443);
+            this.LoginTableLayoutPanel.Size = new System.Drawing.Size(600, 500);
             this.LoginTableLayoutPanel.TabIndex = 0;
             // 
             // AccountLabel
             // 
             this.AccountLabel.AutoSize = true;
             this.AccountLabel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.AccountLabel.Location = new System.Drawing.Point(25, 155);
+            this.AccountLabel.Location = new System.Drawing.Point(33, 175);
             this.AccountLabel.Name = "AccountLabel";
-            this.AccountLabel.Size = new System.Drawing.Size(131, 66);
+            this.AccountLabel.Size = new System.Drawing.Size(174, 75);
             this.AccountLabel.TabIndex = 0;
             this.AccountLabel.Text = "用户名";
             this.AccountLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -84,9 +84,9 @@
             // 
             this.PasswordLabel.AutoSize = true;
             this.PasswordLabel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.PasswordLabel.Location = new System.Drawing.Point(25, 221);
+            this.PasswordLabel.Location = new System.Drawing.Point(33, 250);
             this.PasswordLabel.Name = "PasswordLabel";
-            this.PasswordLabel.Size = new System.Drawing.Size(131, 66);
+            this.PasswordLabel.Size = new System.Drawing.Size(174, 75);
             this.PasswordLabel.TabIndex = 1;
             this.PasswordLabel.Text = "密  码";
             this.PasswordLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -95,9 +95,9 @@
             // 
             this.LoginTableLayoutPanel.SetColumnSpan(this.LoginButton, 2);
             this.LoginButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.LoginButton.Location = new System.Drawing.Point(25, 312);
+            this.LoginButton.Location = new System.Drawing.Point(33, 353);
             this.LoginButton.Name = "LoginButton";
-            this.LoginButton.Size = new System.Drawing.Size(176, 60);
+            this.LoginButton.Size = new System.Drawing.Size(234, 69);
             this.LoginButton.TabIndex = 2;
             this.LoginButton.Text = "确定";
             this.LoginButton.UseVisualStyleBackColor = true;
@@ -106,9 +106,9 @@
             // CloseButton
             // 
             this.CloseButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.CloseButton.Location = new System.Drawing.Point(252, 312);
+            this.CloseButton.Location = new System.Drawing.Point(333, 353);
             this.CloseButton.Name = "CloseButton";
-            this.CloseButton.Size = new System.Drawing.Size(177, 60);
+            this.CloseButton.Size = new System.Drawing.Size(234, 69);
             this.CloseButton.TabIndex = 3;
             this.CloseButton.Text = "关闭";
             this.CloseButton.UseVisualStyleBackColor = true;
@@ -119,11 +119,11 @@
             this.LoginTableLayoutPanel.SetColumnSpan(this.AccountTextBox, 2);
             this.AccountTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.AccountTextBox.Font = new System.Drawing.Font("宋体", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.AccountTextBox.Location = new System.Drawing.Point(214, 165);
+            this.AccountTextBox.Location = new System.Drawing.Point(280, 185);
             this.AccountTextBox.Margin = new System.Windows.Forms.Padding(10);
             this.AccountTextBox.MaxLength = 20;
             this.AccountTextBox.Name = "AccountTextBox";
-            this.AccountTextBox.Size = new System.Drawing.Size(208, 47);
+            this.AccountTextBox.Size = new System.Drawing.Size(280, 47);
             this.AccountTextBox.TabIndex = 4;
             this.AccountTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.AccountTextBox_KeyDown);
             // 
@@ -132,12 +132,12 @@
             this.LoginTableLayoutPanel.SetColumnSpan(this.PasswordTextBox, 2);
             this.PasswordTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.PasswordTextBox.Font = new System.Drawing.Font("宋体", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.PasswordTextBox.Location = new System.Drawing.Point(214, 231);
+            this.PasswordTextBox.Location = new System.Drawing.Point(280, 260);
             this.PasswordTextBox.Margin = new System.Windows.Forms.Padding(10);
             this.PasswordTextBox.MaxLength = 20;
             this.PasswordTextBox.Name = "PasswordTextBox";
             this.PasswordTextBox.PasswordChar = '*';
-            this.PasswordTextBox.Size = new System.Drawing.Size(208, 47);
+            this.PasswordTextBox.Size = new System.Drawing.Size(280, 47);
             this.PasswordTextBox.TabIndex = 5;
             this.PasswordTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.PasswordTextBox_KeyDown);
             // 
@@ -149,7 +149,7 @@
             this.TitleLabel.Font = new System.Drawing.Font("宋体", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.TitleLabel.Location = new System.Drawing.Point(3, 0);
             this.TitleLabel.Name = "TitleLabel";
-            this.TitleLabel.Size = new System.Drawing.Size(452, 155);
+            this.TitleLabel.Size = new System.Drawing.Size(594, 175);
             this.TitleLabel.TabIndex = 6;
             this.TitleLabel.Text = "登录";
             this.TitleLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -159,7 +159,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(458, 443);
+            this.ClientSize = new System.Drawing.Size(600, 500);
             this.Controls.Add(this.LoginTableLayoutPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
