@@ -124,14 +124,14 @@ namespace AutoTestFoundation
             {
                 if (DialogResult.OK == new MaskForm<LogoutForm>().ShowDialog(this))
                 {
-
+                    UpdateUser();
                 }
             }
             else
             {
                 if (DialogResult.OK == new MaskForm<LoginForm>().ShowDialog(this))
                 {
-
+                    UpdateUser();
                 }
             }
         }

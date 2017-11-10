@@ -125,6 +125,7 @@
             this.AccountTextBox.Name = "AccountTextBox";
             this.AccountTextBox.Size = new System.Drawing.Size(208, 47);
             this.AccountTextBox.TabIndex = 4;
+            this.AccountTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.AccountTextBox_KeyDown);
             // 
             // PasswordTextBox
             // 
@@ -138,6 +139,7 @@
             this.PasswordTextBox.PasswordChar = '*';
             this.PasswordTextBox.Size = new System.Drawing.Size(208, 47);
             this.PasswordTextBox.TabIndex = 5;
+            this.PasswordTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.PasswordTextBox_KeyDown);
             // 
             // TitleLabel
             // 

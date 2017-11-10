@@ -44,10 +44,15 @@ namespace AutoTestFoundation.UI
             else if (!UserManager.GetUserManager().ContainsUserName(AccountTextBox.Text))
             {
                 MessageBox.Show("不存在的用户名");
+                AccountTextBox.Text = "";
+                PasswordTextBox.Text = "";
+                AccountTextBox.Focus();
             }
             else if (!UserManager.GetUserManager().ValidateUserNameAndPassword(AccountTextBox.Text, PasswordTextBox.Text))
             {
                 MessageBox.Show("密码不正确");
+                PasswordTextBox.Text = "";
+                AccountTextBox.Focus();
             }
             else
             {
@@ -67,6 +72,22 @@ namespace AutoTestFoundation.UI
         private void LoginForm_Shown(object sender, EventArgs e)
         {
             AccountTextBox.Focus();
+        }
+
+        private void AccountTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                PasswordTextBox.Focus();
+            }
+        }
+
+        private void PasswordTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                LoginButton.PerformClick();
+            }
         }
     }
 }
