@@ -42,9 +42,13 @@ namespace AutoTestFoundation.Manager
                 List<Item> dbItem = DataBaseManager.GetInstance().GetDatas<Item>(DATABASE_TABLE_ITEM_NAME);
                 DataBaseManager.GetInstance().Deinit();
                 dbItem.Sort((x,y) => { return x.Index.CompareTo(y.Index); });
-                for (int i = 0; i < dbItem.Count; i++)
+                if (dbItem.Count > 0)
                 {
-                    items.Add(dbItem[i]);
+                    items.Clear();
+                    for (int i = 0; i < dbItem.Count; i++)
+                    {
+                        items.Add(dbItem[i]);
+                    }
                 }
             }
         }

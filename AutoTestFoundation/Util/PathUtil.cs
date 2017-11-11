@@ -26,6 +26,11 @@ namespace AutoTestFoundation.Util
         private static string ImageLogPath = CurrentPath + "ImageLog\\";
 
         /// <summary>
+        /// 测试工具目录
+        /// </summary>
+        private static string ToolPath = CurrentPath + "Tool\\";
+
+        /// <summary>
         /// 检查并创建指定目录
         /// </summary>
         /// <param name="path">指定目录</param>
@@ -61,6 +66,11 @@ namespace AutoTestFoundation.Util
         public static string GetImageLogPath()
         {
             return MakePath(ImageLogPath);
+        }
+
+        public static string GetToolPath()
+        {
+            return MakePath(ToolPath);
         }
     }
 }
