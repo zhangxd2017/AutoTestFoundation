@@ -229,6 +229,7 @@
             this.SettingDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
             this.SettingDataGridView.Size = new System.Drawing.Size(866, 499);
             this.SettingDataGridView.TabIndex = 0;
+            this.SettingDataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.SettingDataGridView_CellClick);
             this.SettingDataGridView.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.SettingDataGridView_CellDoubleClick);
             // 
             // AddButton

@@ -19,7 +19,7 @@ namespace AutoTestFoundation
             Application.SetCompatibleTextRenderingDefault(false);
             if (new SplashForm().ShowDialog() == DialogResult.OK)
             {
-                Application.Run(new MainForm());
+                Application.Run(new SettingForm());
             }
             else
             {

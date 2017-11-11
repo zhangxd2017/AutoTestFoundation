@@ -87,22 +87,76 @@ namespace AutoTestFoundation.UI
 
         private void AddButton_Click(object sender, EventArgs e)
         {
-
+            if (SettingDataGridView.SelectedCells.Count > 1)    //添加到选中一行的前面
+            {
+                int position = SettingDataGridView.SelectedCells[0].RowIndex;
+                DataGridViewRow dataGridViewRow = new DataGridViewRow();
+                DataGridViewTextBoxCell indexCell = new DataGridViewTextBoxCell();
+                indexCell.Value = position + 1;
+                dataGridViewRow.Cells.Add(indexCell);
+                for (int i = 0; i < SettingDataGridView.Rows.Count; i++)
+                {
+                    if (i >= position)
+                    {
+                        SettingDataGridView[ColumnIndex.Index, i].Value = i + 2;
+                    }
+                }
+                SettingDataGridView.Rows.Insert(SettingDataGridView.SelectedCells[0].RowIndex, dataGridViewRow);
+                SettingDataGridView.ClearSelection();
+                SelectRow(position);
+            }
+            //最后一行添加
+            else
+            {
+                int position = SettingDataGridView.Rows.Count;
+                DataGridViewRow dataGridViewRow = new DataGridViewRow();
+                DataGridViewTextBoxCell indexCell = new DataGridViewTextBoxCell();
+                indexCell.Value = position + 1;
+                dataGridViewRow.Cells.Add(indexCell);
+                SettingDataGridView.Rows.Add(dataGridViewRow);
+                SelectRow(position);
+            }
+            
         }
 
         private void RemoveButton_Click(object sender, EventArgs e)
         {
-
+            if (SettingDataGridView.SelectedCells.Count > 1)
+            {
+                int position = SettingDataGridView.SelectedCells[0].RowIndex;
+                for (int i = 0; i < SettingDataGridView.Rows.Count; i++)
+                {
+                    if (i >= position)
+                    {
+                        SettingDataGridView[ColumnIndex.Index, i].Value = i;
+                    }
+                }
+                SettingDataGridView.Rows.RemoveAt(position);
+                SettingDataGridView.ClearSelection();
+                SelectRow(position);
+            }
         }
 
         private void UpButton_Click(object sender, EventArgs e)
         {
-
+            if (SettingDataGridView.SelectedCells.Count > 1)
+            {
+                int position = SettingDataGridView.SelectedCells[0].RowIndex;
+                ExChangeRowValue(position, position - 1);
+                SettingDataGridView.ClearSelection();
+                SelectRow(position - 1);
+            }
         }
 
         private void DownButton_Click(object sender, EventArgs e)
         {
-
+            if (SettingDataGridView.SelectedCells.Count > 1)
+            {
+                int position = SettingDataGridView.SelectedCells[0].RowIndex;
+                ExChangeRowValue(position, position + 1);
+                SettingDataGridView.ClearSelection();
+                SelectRow(position + 1);
+            }
         }
 
         private void CancelButton_Click(object sender, EventArgs e)
@@ -195,6 +249,60 @@ namespace AutoTestFoundation.UI
             {
 
             }
+        }
+
+        private void SettingDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == ColumnIndex.Index)
+            {
+                SelectRow(e.RowIndex);
+            }
+        }
+
+        private void SelectRow(int row)
+        {
+            if (SettingDataGridView.RowCount > 0)
+            {
+                if (row > SettingDataGridView.RowCount - 1)
+                {
+                    row = SettingDataGridView.RowCount - 1;
+                }
+                SettingDataGridView[ColumnIndex.Index, row].Selected = true;
+                SettingDataGridView[ColumnName.Index, row].Selected = true;
+                SettingDataGridView[ColumnExecute.Index, row].Selected = true;
+                SettingDataGridView[ColumnParamerters.Index, row].Selected = true;
+                SettingDataGridView[ColumnTimeOut.Index, row].Selected = true;
+                SettingDataGridView[ColumnRepeatCount.Index, row].Selected = true;
+                SettingDataGridView[ColumnNeedTest.Index, row].Selected = true;
+            }
+            else
+            {
+                SettingDataGridView.ClearSelection();
+            }
+        }
+
+        private void ExChangeRowValue(int sourceRow, int destRow)
+        {
+            object name = SettingDataGridView[ColumnName.Index, sourceRow].Value;
+            object excute = SettingDataGridView[ColumnExecute.Index, sourceRow].Value;
+            object parameter = SettingDataGridView[ColumnParamerters.Index, sourceRow].Value;
+            object timeout = SettingDataGridView[ColumnTimeOut.Index, sourceRow].Value;
+            object repeat = SettingDataGridView[ColumnRepeatCount.Index, sourceRow].Value;
+            object need = SettingDataGridView[ColumnNeedTest.Index, sourceRow].Value;
+
+            SettingDataGridView[ColumnName.Index, sourceRow].Value = SettingDataGridView[ColumnName.Index, destRow].Value;
+            SettingDataGridView[ColumnExecute.Index, sourceRow].Value = SettingDataGridView[ColumnExecute.Index, destRow].Value;
+            SettingDataGridView[ColumnParamerters.Index, sourceRow].Value = SettingDataGridView[ColumnParamerters.Index, destRow].Value;
+            SettingDataGridView[ColumnTimeOut.Index, sourceRow].Value = SettingDataGridView[ColumnTimeOut.Index, destRow].Value;
+            SettingDataGridView[ColumnRepeatCount.Index, sourceRow].Value = SettingDataGridView[ColumnRepeatCount.Index, destRow].Value;
+            SettingDataGridView[ColumnNeedTest.Index, sourceRow].Value = SettingDataGridView[ColumnNeedTest.Index, destRow].Value;
+
+            SettingDataGridView[ColumnName.Index, destRow].Value = name;
+            SettingDataGridView[ColumnExecute.Index, destRow].Value = excute;
+            SettingDataGridView[ColumnParamerters.Index, destRow].Value = parameter;
+            SettingDataGridView[ColumnTimeOut.Index, destRow].Value = timeout;
+            SettingDataGridView[ColumnRepeatCount.Index, destRow].Value = repeat;
+            SettingDataGridView[ColumnNeedTest.Index, destRow].Value = need;
         }
     }
 }
