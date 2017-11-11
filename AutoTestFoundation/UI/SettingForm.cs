@@ -37,6 +37,7 @@ namespace AutoTestFoundation.UI
             GetAllDataBase();
         }
 
+        #region 控件事件
         private void AddButton_MouseDown(object sender, MouseEventArgs e)
         {
             PictureBox picture = (PictureBox)sender;
@@ -165,6 +166,40 @@ namespace AutoTestFoundation.UI
             Close();
         }
 
+        private void SettingDataGridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == ColumnExecute.Index)
+            {
+                OpenFileDialog openFileDialog = new OpenFileDialog();
+                openFileDialog.InitialDirectory = PathUtil.GetToolPath();
+                openFileDialog.Title = "选择测试执行文件";
+                openFileDialog.Filter = "可执行文件(*.bat)|*.bat";
+                openFileDialog.Multiselect = false;
+                if (openFileDialog.ShowDialog(this) == DialogResult.OK)
+                {
+                    ((DataGridView)sender)[e.RowIndex, e.ColumnIndex].Value = openFileDialog.FileName;
+                }
+                else
+                {
+                    ((DataGridView)sender).CancelEdit();
+                }
+            }
+            else if (e.ColumnIndex == ColumnParamerters.Index)
+            {
+
+            }
+        }
+
+        private void SettingDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == ColumnIndex.Index)
+            {
+                SelectRow(e.RowIndex);
+            }
+        }
+        #endregion
+
+
         private void GetAllDataBase()
         {
             string[] dbs = Directory.GetFiles(PathUtil.GetConfigPath(), "*.db");
@@ -224,38 +259,6 @@ namespace AutoTestFoundation.UI
                     SettingDataGridView.Rows.Add(viewRow);
                 }
                 SettingDataGridView.ClearSelection();
-            }
-        }
-
-        private void SettingDataGridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.ColumnIndex == ColumnExecute.Index)
-            {
-                OpenFileDialog openFileDialog = new OpenFileDialog();
-                openFileDialog.InitialDirectory = PathUtil.GetToolPath();
-                openFileDialog.Title = "选择测试执行文件";
-                openFileDialog.Filter = "可执行文件(*.bat)|*.bat";
-                openFileDialog.Multiselect = false;
-                if (openFileDialog.ShowDialog(this) == DialogResult.OK)
-                {
-                    ((DataGridView)sender)[e.RowIndex, e.ColumnIndex].Value = openFileDialog.FileName;
-                }
-                else
-                {
-                    ((DataGridView)sender).CancelEdit();
-                }
-            }
-            else if (e.ColumnIndex == ColumnParamerters.Index)
-            {
-
-            }
-        }
-
-        private void SettingDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.ColumnIndex == ColumnIndex.Index)
-            {
-                SelectRow(e.RowIndex);
             }
         }
 
