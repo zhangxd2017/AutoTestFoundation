@@ -53,7 +53,7 @@ namespace AutoTestFoundation
         {
             List<T> lists = new List<T>();
 
-            DataTable datas = helper.Select("select * from " + name);
+            DataTable datas = helper.Select("SELECT * FROM " + name);
 
             for (int i = 0; i < datas.Rows.Count; i++)
             {
@@ -80,7 +80,7 @@ namespace AutoTestFoundation
 
         public void SetData<T>(List<T> list, string name)
         {
-            helper.Execute("delete from " + name);
+            helper.Execute("DELETE FROM " + name);
             for (int i = 0; i < list.Count; i++)
             {
                 T t = list[i];
@@ -96,6 +96,13 @@ namespace AutoTestFoundation
                 }
                 helper.Insert(name, dictionary);
             }
+        }
+
+        public void CreateDataBase()
+        {
+            helper.Execute("CREATE TABLE [item]([Index] INT,[ItemName] CHAR,[ExecutablePath] CHAR,[Parameters] CHAR,[TimeOut] INT DEFAULT 3000,[RepeatCount] INT DEFAULT 1,[NeedTest] BOOL DEFAULT true); ");
+            helper.Execute("CREATE TABLE [user]([Name] CHAR NOT NULL,[Password] CHAR NOT NULL); ");
+            //helper.Execute("INSERT INTO ");
         }
 
         public void Deinit()

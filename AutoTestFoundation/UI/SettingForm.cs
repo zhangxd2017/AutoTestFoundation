@@ -237,6 +237,24 @@ namespace AutoTestFoundation.UI
             DataBaseManager.GetInstance().SetData(saveItems, ItemManager.DATABASE_TABLE_ITEM_NAME);
             DataBaseManager.GetInstance().Deinit();
         }
+
+        private void AddConfigButton_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.InitialDirectory = PathUtil.GetConfigPath();
+            saveFileDialog.Title = "请设置新文件的名称";
+            saveFileDialog.Filter = "数据文件(*.db)|*.db";
+            if (saveFileDialog.ShowDialog(this) == DialogResult.OK)
+            {
+                string saveFileName = saveFileDialog.FileName;
+                targetDataBase = saveFileName.Substring(saveFileName.LastIndexOf("\\") + 1);
+                File.Create(saveFileName);
+                DataBaseManager.GetInstance().Init(saveFileName);
+                DataBaseManager.GetInstance().CreateDataBase();
+                DataBaseManager.GetInstance().Deinit();
+                GetAllDataBase();
+            }
+        }
         #endregion
 
 
@@ -347,5 +365,7 @@ namespace AutoTestFoundation.UI
             SettingDataGridView[ColumnRepeatCount.Index, destRow].Value = repeat;
             SettingDataGridView[ColumnNeedTest.Index, destRow].Value = need;
         }
+
+        
     }
 }
