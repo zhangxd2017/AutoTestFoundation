@@ -58,6 +58,7 @@
             this.ConfigTabPage = new System.Windows.Forms.TabPage();
             this.SaveButton = new System.Windows.Forms.Button();
             this.AddConfigButton = new System.Windows.Forms.Button();
+            this.CancelButton = new System.Windows.Forms.Button();
             this.SettingTableLayoutPanel.SuspendLayout();
             this.SettingUserTabControl.SuspendLayout();
             this.ItemTabPage.SuspendLayout();
@@ -80,8 +81,9 @@
             this.SettingTableLayoutPanel.Controls.Add(this.ConfigLabel, 0, 0);
             this.SettingTableLayoutPanel.Controls.Add(this.ConfigComboBox, 1, 0);
             this.SettingTableLayoutPanel.Controls.Add(this.SettingUserTabControl, 0, 1);
-            this.SettingTableLayoutPanel.Controls.Add(this.SaveButton, 4, 3);
+            this.SettingTableLayoutPanel.Controls.Add(this.SaveButton, 3, 3);
             this.SettingTableLayoutPanel.Controls.Add(this.AddConfigButton, 2, 0);
+            this.SettingTableLayoutPanel.Controls.Add(this.CancelButton, 4, 3);
             this.SettingTableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.SettingTableLayoutPanel.Location = new System.Drawing.Point(0, 0);
             this.SettingTableLayoutPanel.Name = "SettingTableLayoutPanel";
@@ -351,7 +353,7 @@
             // SaveButton
             // 
             this.SaveButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.SaveButton.Location = new System.Drawing.Point(820, 640);
+            this.SaveButton.Location = new System.Drawing.Point(620, 640);
             this.SaveButton.Margin = new System.Windows.Forms.Padding(20, 3, 20, 3);
             this.SaveButton.Name = "SaveButton";
             this.SaveButton.Size = new System.Drawing.Size(160, 50);
@@ -369,6 +371,18 @@
             this.AddConfigButton.TabIndex = 4;
             this.AddConfigButton.Text = "新建";
             this.AddConfigButton.UseVisualStyleBackColor = true;
+            // 
+            // CancelButton
+            // 
+            this.CancelButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.CancelButton.Location = new System.Drawing.Point(820, 640);
+            this.CancelButton.Margin = new System.Windows.Forms.Padding(20, 3, 20, 3);
+            this.CancelButton.Name = "CancelButton";
+            this.CancelButton.Size = new System.Drawing.Size(160, 50);
+            this.CancelButton.TabIndex = 5;
+            this.CancelButton.Text = "取消";
+            this.CancelButton.UseVisualStyleBackColor = true;
+            this.CancelButton.Click += new System.EventHandler(this.CancelButton_Click);
             // 
             // SettingForm
             // 
@@ -422,5 +436,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnRepeatCount;
         private System.Windows.Forms.DataGridViewCheckBoxColumn ColumnNeedTest;
         private System.Windows.Forms.Button AddConfigButton;
+        private System.Windows.Forms.Button CancelButton;
     }
 }

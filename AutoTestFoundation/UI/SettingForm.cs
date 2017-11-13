@@ -176,16 +176,19 @@ namespace AutoTestFoundation.UI
                 openFileDialog.Multiselect = false;
                 if (openFileDialog.ShowDialog(this) == DialogResult.OK)
                 {
-                    ((DataGridView)sender)[e.RowIndex, e.ColumnIndex].Value = openFileDialog.FileName;
+                    ((DataGridView)sender)[e.ColumnIndex, e.RowIndex].Value = openFileDialog.FileName;
                 }
-                else
-                {
-                    ((DataGridView)sender).CancelEdit();
-                }
+                ((DataGridView)sender).ClearSelection();
             }
             else if (e.ColumnIndex == ColumnParamerters.Index)
             {
-
+                EditParameterForm editParameterForm = new EditParameterForm();
+                editParameterForm.parameter = (string)((DataGridView)sender)[e.ColumnIndex, e.RowIndex].Value;
+                if (editParameterForm.ShowDialog(this) == DialogResult.OK)
+                {
+                    ((DataGridView)sender)[e.ColumnIndex, e.RowIndex].Value = editParameterForm.parameter;
+                }
+                ((DataGridView)sender).ClearSelection();
             }
         }
 
@@ -344,7 +347,5 @@ namespace AutoTestFoundation.UI
             SettingDataGridView[ColumnRepeatCount.Index, destRow].Value = repeat;
             SettingDataGridView[ColumnNeedTest.Index, destRow].Value = need;
         }
-
-        
     }
 }
