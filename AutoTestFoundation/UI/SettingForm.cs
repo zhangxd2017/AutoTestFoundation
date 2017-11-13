@@ -13,7 +13,6 @@ namespace AutoTestFoundation.UI
     {
 
         private string targetDataBase = null;
-        private List<Item> items = new List<Item>();
 
         public SettingForm()
         {
@@ -30,8 +29,8 @@ namespace AutoTestFoundation.UI
                 if (application != null && application.DataBaseName != null)
                 {
                     targetDataBase = application.DataBaseName;
-                    ItemManager.GetItemManager().InitWithConfig(PathUtil.GetConfigPath() + targetDataBase);
-                    InitDataGrid();
+                    //ItemManager.GetItemManager().InitWithConfig(PathUtil.GetConfigPath() + targetDataBase);
+                    InitDataGrid(PathUtil.GetConfigPath() + targetDataBase);
                 }
             }
             GetAllDataBase();
@@ -197,6 +196,44 @@ namespace AutoTestFoundation.UI
                 SelectRow(e.RowIndex);
             }
         }
+
+        private void SaveButton_Click(object sender, EventArgs e)
+        {
+            List<Item> saveItems = new List<Item>();
+            for (int i = 0; i < SettingDataGridView.RowCount; i++)
+            {
+                if (SettingDataGridView[ColumnName.Index, i].Value.Equals(string.Empty))
+                {
+                    MessageBox.Show(string.Format("第{0}个测试项名称未填写", i + 1));
+                    return;
+                }
+                else if (SettingDataGridView[ColumnExecute.Index, i].Value.Equals(string.Empty))
+                {
+                    MessageBox.Show(string.Format("第{0}个测试项执行文件位置未填写", i + 1));
+                    return;
+                }
+                else if (SettingDataGridView[ColumnTimeOut.Index, i].Value.Equals(string.Empty) || !RegUtil.IsNumber(SettingDataGridView[ColumnTimeOut.Index, i].Value))
+                {
+                    SettingDataGridView[ColumnTimeOut.Index, i].Value = 3000;
+                }
+                else if (SettingDataGridView[ColumnRepeatCount.Index, i].Value.Equals(string.Empty) || !RegUtil.IsNumber(SettingDataGridView[ColumnRepeatCount.Index, i].Value))
+                {
+                    SettingDataGridView[ColumnRepeatCount.Index, i].Value = 1;
+                }
+                Item item = new Item();
+                item.Index = i + 1;
+                item.ItemName = (string)SettingDataGridView[ColumnName.Index, i].Value;
+                item.ExecutablePath = (string)SettingDataGridView[ColumnExecute.Index, i].Value;
+                item.Parameters = (string)SettingDataGridView[ColumnParamerters.Index, i].Value;
+                item.TimeOut = (int)SettingDataGridView[ColumnTimeOut.Index, i].Value;
+                item.RepeatCount = (int)SettingDataGridView[ColumnRepeatCount.Index, i].Value;
+                item.NeedTest = (bool)SettingDataGridView[ColumnNeedTest.Index, i].Value;
+                saveItems.Add(item);
+            }
+            DataBaseManager.GetInstance().Init(PathUtil.GetConfigPath() + targetDataBase);
+            DataBaseManager.GetInstance().SetData(saveItems, ItemManager.DATABASE_TABLE_ITEM_NAME);
+            DataBaseManager.GetInstance().Deinit();
+        }
         #endregion
 
 
@@ -218,15 +255,15 @@ namespace AutoTestFoundation.UI
             }
         }
 
-        private void InitDataGrid()
+        private void InitDataGrid(string path)
         {
-            List<Item> tmpItems = ItemManager.GetItemManager().GetItems();
+            DataBaseManager.GetInstance().Init(path);
+            List<Item> tmpItems = DataBaseManager.GetInstance().GetDatas<Item>(ItemManager.DATABASE_TABLE_ITEM_NAME);
+            DataBaseManager.GetInstance().Deinit();
             if (tmpItems.Count > 0)
             {
-                items.Clear();
                 foreach (Item item in tmpItems)
                 {
-                    items.Add(item);
                     DataGridViewRow viewRow = new DataGridViewRow();
                     //序号
                     DataGridViewTextBoxCell indexCell = new DataGridViewTextBoxCell();
@@ -307,5 +344,7 @@ namespace AutoTestFoundation.UI
             SettingDataGridView[ColumnRepeatCount.Index, destRow].Value = repeat;
             SettingDataGridView[ColumnNeedTest.Index, destRow].Value = need;
         }
+
+        
     }
 }

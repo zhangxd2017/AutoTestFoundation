@@ -78,6 +78,26 @@ namespace AutoTestFoundation
             return lists;
         }
 
+        public void SetData<T>(List<T> list, string name)
+        {
+            helper.Execute("delete from " + name);
+            for (int i = 0; i < list.Count; i++)
+            {
+                T t = list[i];
+                Dictionary<string, object> dictionary = new Dictionary<string, object>();
+                foreach (MemberInfo memberInfo in typeof(T).GetMembers(BindingFlags.NonPublic | BindingFlags.Instance
+                    | BindingFlags.Public | BindingFlags.DeclaredOnly))
+                {
+                    if (memberInfo.Name.StartsWith("get_"))
+                    {
+                        MethodInfo methodInfo = typeof(T).GetMethod(memberInfo.Name, BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic);
+                        dictionary.Add(memberInfo.Name.Substring(4), methodInfo.Invoke(t, null));
+                    }
+                }
+                helper.Insert(name, dictionary);
+            }
+        }
+
         public void Deinit()
         {
             helper.GetCmd().Connection.Close();

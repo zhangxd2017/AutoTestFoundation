@@ -128,6 +128,7 @@
     <Compile Include="Util\CryptoUtil.cs" />
     <Compile Include="Util\LogUtil.cs" />
     <Compile Include="Util\PathUtil.cs" />
+    <Compile Include="Util\RegUtil.cs" />
     <Compile Include="View\DataGridViewProgressBarCell.cs" />
     <Compile Include="View\UserTabControl.cs">
       <SubType>Component</SubType>
