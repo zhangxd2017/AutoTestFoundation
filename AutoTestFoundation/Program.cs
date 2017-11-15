@@ -1,4 +1,5 @@
 ﻿using AutoTestFoundation.UI;
+using AutoTestFoundation.Util;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,7 @@ namespace AutoTestFoundation
         [STAThread]
         static void Main()
         {
+            InvokeUtil.InitPowerShell();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             if (new SplashForm().ShowDialog() == DialogResult.OK)

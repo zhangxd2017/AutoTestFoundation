@@ -40,8 +40,6 @@
             this.SettingTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.ConfigLabel = new System.Windows.Forms.Label();
             this.ConfigComboBox = new System.Windows.Forms.ComboBox();
-            this.SaveButton = new System.Windows.Forms.Button();
-            this.CancelButton = new System.Windows.Forms.Button();
             this.SettingUserTabControl = new AutoTestFoundation.View.UserTabControl();
             this.ItemTabPage = new System.Windows.Forms.TabPage();
             this.ItemTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
@@ -58,6 +56,8 @@
             this.UpButton = new System.Windows.Forms.PictureBox();
             this.DownButton = new System.Windows.Forms.PictureBox();
             this.ConfigTabPage = new System.Windows.Forms.TabPage();
+            this.SaveButton = new System.Windows.Forms.Button();
+            this.CancelButton = new System.Windows.Forms.Button();
             this.SettingTableLayoutPanel.SuspendLayout();
             this.SettingUserTabControl.SuspendLayout();
             this.ItemTabPage.SuspendLayout();
@@ -117,30 +117,6 @@
             this.ConfigComboBox.Name = "ConfigComboBox";
             this.ConfigComboBox.Size = new System.Drawing.Size(194, 48);
             this.ConfigComboBox.TabIndex = 1;
-            // 
-            // SaveButton
-            // 
-            this.SaveButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.SaveButton.Location = new System.Drawing.Point(620, 640);
-            this.SaveButton.Margin = new System.Windows.Forms.Padding(20, 3, 20, 3);
-            this.SaveButton.Name = "SaveButton";
-            this.SaveButton.Size = new System.Drawing.Size(160, 50);
-            this.SaveButton.TabIndex = 3;
-            this.SaveButton.Text = "保存";
-            this.SaveButton.UseVisualStyleBackColor = true;
-            this.SaveButton.Click += new System.EventHandler(this.SaveButton_Click);
-            // 
-            // CancelButton
-            // 
-            this.CancelButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.CancelButton.Location = new System.Drawing.Point(820, 640);
-            this.CancelButton.Margin = new System.Windows.Forms.Padding(20, 3, 20, 3);
-            this.CancelButton.Name = "CancelButton";
-            this.CancelButton.Size = new System.Drawing.Size(160, 50);
-            this.CancelButton.TabIndex = 5;
-            this.CancelButton.Text = "取消";
-            this.CancelButton.UseVisualStyleBackColor = true;
-            this.CancelButton.Click += new System.EventHandler(this.CancelButton_Click);
             // 
             // SettingUserTabControl
             // 
@@ -371,6 +347,30 @@
             this.ConfigTabPage.Size = new System.Drawing.Size(978, 511);
             this.ConfigTabPage.TabIndex = 1;
             this.ConfigTabPage.Text = "配置设置";
+            // 
+            // SaveButton
+            // 
+            this.SaveButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.SaveButton.Location = new System.Drawing.Point(620, 640);
+            this.SaveButton.Margin = new System.Windows.Forms.Padding(20, 3, 20, 3);
+            this.SaveButton.Name = "SaveButton";
+            this.SaveButton.Size = new System.Drawing.Size(160, 50);
+            this.SaveButton.TabIndex = 3;
+            this.SaveButton.Text = "保存";
+            this.SaveButton.UseVisualStyleBackColor = true;
+            this.SaveButton.Click += new System.EventHandler(this.SaveButton_Click);
+            // 
+            // CancelButton
+            // 
+            this.CancelButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.CancelButton.Location = new System.Drawing.Point(820, 640);
+            this.CancelButton.Margin = new System.Windows.Forms.Padding(20, 3, 20, 3);
+            this.CancelButton.Name = "CancelButton";
+            this.CancelButton.Size = new System.Drawing.Size(160, 50);
+            this.CancelButton.TabIndex = 5;
+            this.CancelButton.Text = "取消";
+            this.CancelButton.UseVisualStyleBackColor = true;
+            this.CancelButton.Click += new System.EventHandler(this.CancelButton_Click);
             // 
             // SettingForm
             // 
