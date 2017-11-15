@@ -21,6 +21,8 @@ namespace AutoTestFoundation
         public static extern bool ReleaseCapture();
         [DllImport("user32.dll")]
         public static extern bool SendMessage(IntPtr hwnd, int wMsg, int wParam, int lParam);
+        [DllImport("user32")]
+        public static extern bool ChangeWindowMessageFilter(uint msg, int flags);
 
         public delegate void DoInMainThread(object[] objs);
         public delegate int DoTest(Item item);
@@ -53,6 +55,7 @@ namespace AutoTestFoundation
             pfc = new PrivateFontCollection();
             pfc.AddFontFile(timeFontPath);
             InitializeComponent();
+            ChangeWindowMessageFilter(CopyData.WM_COPYDATA, 1);
         }
 
         #region Windows消息

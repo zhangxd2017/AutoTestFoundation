@@ -28,5 +28,11 @@ namespace AutoTestFoundation.Extern
         public const int WM_COPYDATA = 0x004A;
 
         public const int MSG_TYPE_LOG = 100;
+
+        public const int MSG_TOUCH_SCREEN = 101;
+
+        public const int MSG_SET_CONTROL = 102;
+
+        public const int MSG_GET_PHOTO = 103;
     }
 }

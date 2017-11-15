@@ -57,6 +57,14 @@ namespace SendLog
                     cds.cbData = Encoding.Default.GetBytes(args[1]).Length + 1;
                     SendMessage(mainWindowPtr, CopyData.WM_COPYDATA, CopyData.MSG_TYPE_LOG, ref cds);
                 }
+                else
+                {
+                    Console.WriteLine("window not found");
+                }
+            }
+            else
+            {
+                Console.WriteLine("param error");
             }
         }
     }
