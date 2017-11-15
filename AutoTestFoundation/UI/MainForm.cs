@@ -168,6 +168,7 @@ namespace AutoTestFoundation
                     if (DialogResult.OK == new SettingForm().ShowDialog(this))
                     {
                         //更新
+                        InitDataGrid();
                     }
                 }
             }
@@ -237,6 +238,7 @@ namespace AutoTestFoundation
             if (tmpItems.Count > 0)
             {
                 items.Clear();
+                MainDataGridView.Rows.Clear();
                 foreach (Item item in tmpItems)
                 {
                     if (item.NeedTest)

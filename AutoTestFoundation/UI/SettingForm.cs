@@ -172,7 +172,7 @@ namespace AutoTestFoundation.UI
                 OpenFileDialog openFileDialog = new OpenFileDialog();
                 openFileDialog.InitialDirectory = PathUtil.GetToolPath();
                 openFileDialog.Title = "选择测试执行文件";
-                openFileDialog.Filter = "可执行文件(*.bat)|*.bat";
+                openFileDialog.Filter = "PowerShell文件(*.ps1)|*.ps1|批处理文件(*.bat)|*.bat|执行文件(*.exe)|*.exe";
                 openFileDialog.Multiselect = false;
                 if (openFileDialog.ShowDialog(this) == DialogResult.OK)
                 {
@@ -236,6 +236,9 @@ namespace AutoTestFoundation.UI
             DataBaseManager.GetInstance().Init(PathUtil.GetConfigPath() + targetDataBase);
             DataBaseManager.GetInstance().SetData(saveItems, ItemManager.DATABASE_TABLE_ITEM_NAME);
             DataBaseManager.GetInstance().Deinit();
+            ItemManager.GetItemManager().InitWithConfig(PathUtil.GetConfigPath() + targetDataBase);
+            DialogResult = DialogResult.OK;
+            Close();
         }
 
         private void AddConfigButton_Click(object sender, EventArgs e)
