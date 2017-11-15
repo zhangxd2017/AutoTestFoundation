@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.27004.2002
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoTestFoundation", "AutoTestFoundation\AutoTestFoundation.csproj", "{EE00ACA3-B15B-4E0E-8FC0-07733512F45E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SendLog", "SendLog\SendLog.csproj", "{B03E1B9C-BFDE-4D69-BE6B-C0FAF024A43B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{EE00ACA3-B15B-4E0E-8FC0-07733512F45E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EE00ACA3-B15B-4E0E-8FC0-07733512F45E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EE00ACA3-B15B-4E0E-8FC0-07733512F45E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B03E1B9C-BFDE-4D69-BE6B-C0FAF024A43B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B03E1B9C-BFDE-4D69-BE6B-C0FAF024A43B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B03E1B9C-BFDE-4D69-BE6B-C0FAF024A43B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B03E1B9C-BFDE-4D69-BE6B-C0FAF024A43B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

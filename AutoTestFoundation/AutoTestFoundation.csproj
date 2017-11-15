@@ -92,6 +92,7 @@
     <Compile Include="DataBase\SQLiteColumnList.cs" />
     <Compile Include="DataBase\SQLiteHelper.cs" />
     <Compile Include="DataBase\SQLiteTable.cs" />
+    <Compile Include="Extern\CopyData.cs" />
     <Compile Include="Manager\CameraManager.cs" />
     <Compile Include="Manager\ConfigManager.cs" />
     <Compile Include="Manager\DataBaseManager.cs" />

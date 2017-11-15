@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoTestFoundation.Extern;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
@@ -9,13 +10,7 @@ using System.Windows.Forms;
 
 namespace AutoTestFoundation.Util
 {
-    public enum LogType
-    {
-        Verbose,
-        Debug,
-        Info,
-        Error
-    }
+    
 
     class LogUtil
     {
