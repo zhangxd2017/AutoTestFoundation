@@ -11,6 +11,7 @@ using System.Threading;
 using System.Drawing;
 using AutoTestFoundation.Util;
 using System.Drawing.Text;
+using AutoTestFoundation.Extern;
 
 namespace AutoTestFoundation
 {
@@ -53,6 +54,38 @@ namespace AutoTestFoundation
             pfc.AddFontFile(timeFontPath);
             InitializeComponent();
         }
+
+        #region Windows消息
+        protected override void WndProc(ref Message m)
+        {
+            switch(m.Msg)
+            {
+                case CopyData.WM_COPYDATA:
+                    ProcMessage(ref m);
+                    break;
+                default:
+                    base.WndProc(ref m);
+                    break;
+            }
+            
+        }
+
+        void ProcMessage(ref Message m)
+        {
+            int messageType = (int)m.WParam;
+            switch (messageType)
+            {
+                case CopyData.MSG_TYPE_LOG:
+                    COPYDATASTRUCT cds = new COPYDATASTRUCT();
+                    cds = (COPYDATASTRUCT)m.GetLParam(cds.GetType());
+                    Console.WriteLine(cds.dwData);
+                    Console.WriteLine(cds.lpData);
+                    break;
+                default:
+                    break;
+            }
+        }
+        #endregion
 
         #region 窗口事件
         private void MainForm_Load(object sender, EventArgs e)
