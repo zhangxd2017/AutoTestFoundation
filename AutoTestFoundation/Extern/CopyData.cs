@@ -34,5 +34,49 @@ namespace AutoTestFoundation.Extern
         public const int MSG_SET_CONTROL = 102;
 
         public const int MSG_GET_PHOTO = 103;
+
+        public static bool IsLogType(string value)
+        {
+            return LogType.Verbose.ToString().Equals(value) ||
+                LogType.Debug.ToString().Equals(value) ||
+                LogType.Info.ToString().Equals(value) ||
+                LogType.Error.ToString().Equals(value);
+        }
+
+        public static LogType GetLogType(string value)
+        {
+            if (LogType.Verbose.ToString().Equals(value))
+            {
+                return LogType.Verbose;
+            }
+            else if (LogType.Debug.ToString().Equals(value))
+            {
+                return LogType.Debug;
+            }
+            else if (LogType.Info.ToString().Equals(value))
+            {
+                return LogType.Info;
+            }
+            else
+            {
+                return LogType.Error;
+            }
+        }
+
+        public static LogType GetLogType(int value)
+        {
+            switch (value)
+            {
+                case 3:
+                    return LogType.Error;
+                case 2:
+                    return LogType.Info;
+                case 1:
+                    return LogType.Debug;
+                case 0:
+                default:
+                    return LogType.Verbose;
+            }
+        }
     }
 }

@@ -79,7 +79,10 @@ namespace AutoTestFoundation.Util
         /// <param name="message"></param>
         public static void Log(string filePath, string message)
         {
-            File.AppendAllText(filePath, message);
+            if (filePath != null && filePath.Length > 0)
+            {
+                File.AppendAllText(filePath, Log(message));
+            }
         }
 
         public static void LogAdmin(RichTextBox textBox, string filePath, LogType type, string message)

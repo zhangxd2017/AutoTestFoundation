@@ -13,5 +13,6 @@ namespace AutoTestFoundation.Constant
 
         public const int RESULT_TIME_OUT = -1;
 
+        public const int RESULT_ERROR = -2;
     }
 }

@@ -12,6 +12,9 @@ using System.Drawing;
 using AutoTestFoundation.Util;
 using System.Drawing.Text;
 using AutoTestFoundation.Extern;
+using System.Diagnostics;
+using System.Threading.Tasks;
+using System.ComponentModel;
 
 namespace AutoTestFoundation
 {
@@ -26,6 +29,7 @@ namespace AutoTestFoundation
 
         public delegate void DoInMainThread(object[] objs);
         public delegate int DoTest(Item item);
+
         #region 全局变量
 
         private bool isMouseDown = false;
@@ -46,7 +50,10 @@ namespace AutoTestFoundation
 
         private int passCount = 0, failCount = 0, totalCount = 0;
 
+        private string SN = null;
+
         private string logFilePath = null;
+        
         #endregion
 
         public MainForm()
@@ -81,8 +88,7 @@ namespace AutoTestFoundation
                 case CopyData.MSG_TYPE_LOG:
                     COPYDATASTRUCT cds = new COPYDATASTRUCT();
                     cds = (COPYDATASTRUCT)m.GetLParam(cds.GetType());
-                    Console.WriteLine(cds.dwData);
-                    Console.WriteLine(cds.lpData);
+                    ShowLog(new object[] { (int)cds.dwData, cds.lpData });
                     break;
                 default:
                     break;
@@ -192,6 +198,8 @@ namespace AutoTestFoundation
 
         private void StartStopButton_Click(object sender, EventArgs e)
         {
+            SN = DateTime.Now.ToString("yyyyMMdd_hhmmss");
+            logFilePath = PathUtil.GetLogPath() + SN + ".txt";
             OnTest();
         }
 
@@ -361,19 +369,28 @@ namespace AutoTestFoundation
             else
                 this.Cursor = Cursors.Arrow;
         }
+
+        private void ShowLog(object[] objs)
+        {
+            if (InvokeRequired)
+            {
+                Invoke(new DoInMainThread(ShowLog));
+                return;
+            }
+            LogType type = CopyData.GetLogType((int)objs[0]);
+            string message = (string)objs[1];
+            if (UserManager.GetUserManager().GetCurrentUser().IsAdmin())
+            {
+                LogUtil.LogAdmin(LogTextBox, logFilePath, type, message);
+            }
+            else
+            {
+                LogUtil.LogTest(LogTextBox, logFilePath, type, message);
+            }
+        }
         #endregion
 
         #region 测试核心方法
-
-        Random random = new Random();
-
-        private int OnItemTest(Item item)
-        {
-            Console.WriteLine("OnItemTest" + Environment.CurrentManagedThreadId);
-            Thread.Sleep(1000);
-            return random.Next(99) > 0 ? 0 : 1;
-        }
-
         private void OnTest()
         {
             bool allResult = true;
@@ -413,21 +430,32 @@ namespace AutoTestFoundation
             int maxCount = item.TimeOut / TEST_INTERVAL;
             for (int i = 0; i < item.RepeatCount; i++)
             {
-                int count = 0;
                 UpdateProgress(index, 0);
-                DoTest doTest = OnItemTest;
-                IAsyncResult asyncResult = doTest.BeginInvoke(item, null, null);
-                while (!asyncResult.AsyncWaitHandle.WaitOne(TEST_INTERVAL, false))
+                Worker worker = new Worker();
+                worker.RunWorkerAsync(item);
+                for (int j = 0; j <= item.TimeOut; j+=TEST_INTERVAL)
                 {
-                    if (count++ >= maxCount)
+                    Thread.Sleep(TEST_INTERVAL);
+                    Application.DoEvents();
+                    if (worker.IsBusy())
+                    {
+                        UpdateProgress(index, j * 100 / item.TimeOut);
+                    }
+                    else
                     {
                         UpdateProgress(index, 100);
-                        return result;
+                        break;
                     }
-                    UpdateProgress(index, count * 100 / maxCount);
-                    Application.DoEvents();
                 }
-                result = doTest.EndInvoke(asyncResult);
+                if (worker.IsBusy())
+                {
+                    worker.CancelAsync();
+                    result = ResultCode.RESULT_TIME_OUT;
+                }
+                else
+                {
+                    result = (int)worker.GetResult();
+                }
                 if (result == ResultCode.RESULT_SUCCESS)
                 {
                     break;
@@ -572,8 +600,77 @@ namespace AutoTestFoundation
                 failCount++;
             UpdatePercent();
         }
-
-        
         #endregion
+    }
+
+    class Worker
+    {
+        private BackgroundWorker backgroundWorker;
+        private object result = null;
+
+        public Worker()
+        {
+            backgroundWorker = new BackgroundWorker();
+            backgroundWorker.WorkerSupportsCancellation = true;
+            backgroundWorker.DoWork += BackgroundWorker_DoWork;
+            backgroundWorker.RunWorkerCompleted += BackgroundWorker_RunWorkerCompleted;
+        }
+
+        private void BackgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            result = e.Result;
+        }
+
+        private int OnItemTest(Item item)
+        {
+            int code = ResultCode.RESULT_ERROR;
+            if (item.ExecutablePath.ToUpper().EndsWith("EXE"))
+            {
+                code = InvokeUtil.InvokeExe(item.ExecutablePath, item.Parameters);
+            }
+            else if (item.ExecutablePath.ToUpper().EndsWith("PS1"))
+            {
+                code = InvokeUtil.InvokePowerShell(item.ExecutablePath, item.Parameters);
+            }
+            else if (item.ExecutablePath.ToUpper().EndsWith("BAT"))
+            {
+                code = InvokeUtil.InvokeCmd(item.ExecutablePath, item.Parameters);
+            }
+            return code;
+        }
+
+        private void BackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            if (e.Argument != null && e.Argument is Item)
+            {
+                Item item = (Item)e.Argument;
+                e.Result = OnItemTest(item);
+            }
+        }
+
+        public bool IsBusy()
+        {
+            return backgroundWorker.IsBusy;
+        }
+
+        public void RunWorkerAsync(Item item)
+        {
+            backgroundWorker.RunWorkerAsync(item);
+        }
+
+        public void RunWorkerAsync()
+        {
+            backgroundWorker.RunWorkerAsync();
+        }
+
+        public object GetResult()
+        {
+            return result;
+        }
+
+        public void CancelAsync()
+        {
+            backgroundWorker.CancelAsync();
+        }
     }
 }
