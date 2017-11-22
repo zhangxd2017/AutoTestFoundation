@@ -15,6 +15,8 @@ using AutoTestFoundation.Extern;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.ComponentModel;
+using System.IO.MemoryMappedFiles;
+using System.IO;
 
 namespace AutoTestFoundation
 {
@@ -28,6 +30,7 @@ namespace AutoTestFoundation
         public static extern bool ChangeWindowMessageFilter(uint msg, int flags);
 
         public delegate void DoInMainThread(object[] objs);
+        public delegate void DoInMain();
         public delegate int DoTest(Item item);
 
         #region 全局变量
@@ -53,7 +56,14 @@ namespace AutoTestFoundation
         private string SN = null;
 
         private string logFilePath = null;
-        
+
+        /// <summary>
+        /// 控制卡IO值 高64位为out 低64位为in 默认高电平
+        /// </summary>
+        byte[] cardIO = new byte[] { 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
+                                     0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
+        MemoryMappedFile mappedFile = null;
+        MemoryMappedViewAccessor accessor = null;
         #endregion
 
         public MainForm()
@@ -104,6 +114,20 @@ namespace AutoTestFoundation
 
         private void MainForm_Shown(object sender, EventArgs e)
         {
+            //检查控制卡和相机
+
+            //开辟共享内存
+            try
+            {
+                mappedFile = MemoryMappedFile.CreateNew("MainForm", 1000);
+                accessor = mappedFile.CreateViewAccessor(0, cardIO.Length, MemoryMappedFileAccess.Write);
+                CardTimer.Enabled = true;
+            }
+            catch
+            {
+                LogUtil.LogAdmin(LogTextBox, null, LogType.Error, "无法提供控制卡状态信息");
+            }
+            
             //测试项
             InitDataGrid();
         }
@@ -157,6 +181,12 @@ namespace AutoTestFoundation
         {
             InitView();
         }
+
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            accessor.Dispose();
+            mappedFile.Dispose();
+        }
         #endregion
 
         #region 控件事件
@@ -206,6 +236,34 @@ namespace AutoTestFoundation
         private void TestTimer_Tick(object sender, EventArgs e)
         {
             UpdateTime(new object[] {DateTime.Now });
+        }
+
+        private void CardTimer_Tick(object sender, EventArgs e)
+        {
+
+            if (accessor != null)
+            {
+                try
+                {
+                    if (cardIO[0] > byte.MinValue)
+                    {
+                        cardIO[0] = (byte)(cardIO[0] - 1);
+                    }
+                    else
+                    {
+                        cardIO[0] = byte.MaxValue;
+                    }
+                    accessor.WriteArray(0, cardIO, 0, cardIO.Length);
+                }
+                catch
+                {
+                    if (accessor!= null)
+                    {
+                        accessor.Dispose();
+                        accessor = null;
+                    }
+                }
+            }
         }
 
         private void ClosePictureBox_MouseEnter(object sender, EventArgs e)
@@ -298,11 +356,11 @@ namespace AutoTestFoundation
         {
             if (titleClickCount > 1)
             {
-                ChangeWindow(new object[] { });
+                ChangeWindow();
             }
             else
             {
-                MoveWindow(new object[] { });
+                MoveWindow();
             }
             titleClickCount = 0;
             if (titleClickTimer != null)
@@ -312,22 +370,22 @@ namespace AutoTestFoundation
             }
         }
 
-        private void MoveWindow(object[] objs)
+        private void MoveWindow()
         {
             if (InvokeRequired)
             {
-                Invoke(new DoInMainThread(MoveWindow));
+                Invoke(new DoInMain(MoveWindow));
                 return;
             }
             ReleaseCapture();
             SendMessage(this.Handle, WindowsMessage.WM_SYSCOMMAND, WindowsMessage.SC_MOVE + WindowsMessage.HTCAPTION, 0);
         }
 
-        private void ChangeWindow(object[] objs)
+        private void ChangeWindow()
         {
             if (InvokeRequired)
             {
-                Invoke(new DoInMainThread(ChangeWindow));
+                Invoke(new DoInMain(ChangeWindow));
                 return;
             }
             if (this.WindowState != FormWindowState.Maximized)
@@ -586,6 +644,7 @@ namespace AutoTestFoundation
             testStartTime = DateTime.Now;
             TimeLabel.Text = string.Format("{0:00} : {1:00} . {2:000}", 0, 0, 0);
             TestTimer.Enabled = true;
+            LogTextBox.Text = "";
         }
 
         private void OnEnd(bool success)

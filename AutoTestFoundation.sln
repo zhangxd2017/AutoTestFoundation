@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoTestFoundation", "AutoT
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SendCommand", "SendCommand\SendCommand.csproj", "{B03E1B9C-BFDE-4D69-BE6B-C0FAF024A43B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControlCardViewer", "ControlCardViewer\ControlCardViewer.csproj", "{6361200C-C5F5-4CE8-B5A4-9ADAFFD3D6F3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{B03E1B9C-BFDE-4D69-BE6B-C0FAF024A43B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B03E1B9C-BFDE-4D69-BE6B-C0FAF024A43B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B03E1B9C-BFDE-4D69-BE6B-C0FAF024A43B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6361200C-C5F5-4CE8-B5A4-9ADAFFD3D6F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6361200C-C5F5-4CE8-B5A4-9ADAFFD3D6F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6361200C-C5F5-4CE8-B5A4-9ADAFFD3D6F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6361200C-C5F5-4CE8-B5A4-9ADAFFD3D6F3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

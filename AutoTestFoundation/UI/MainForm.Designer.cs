@@ -62,6 +62,7 @@
             this.ClosePictureBox = new System.Windows.Forms.PictureBox();
             this.dataGridViewProgressBarColumn1 = new AutoTestFoundation.View.DataGridViewProgressBarCell.DataGridViewProgressBarColumn();
             this.TestTimer = new System.Windows.Forms.Timer(this.components);
+            this.CardTimer = new System.Windows.Forms.Timer(this.components);
             this.MainTableLayoutPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MainDataGridView)).BeginInit();
             this.ContentPanel.SuspendLayout();
@@ -408,6 +409,10 @@
             this.TestTimer.Interval = 20;
             this.TestTimer.Tick += new System.EventHandler(this.TestTimer_Tick);
             // 
+            // CardTimer
+            // 
+            this.CardTimer.Tick += new System.EventHandler(this.CardTimer_Tick);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 24F);
@@ -422,6 +427,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "赛远科技";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.Shown += new System.EventHandler(this.MainForm_Shown);
             this.SizeChanged += new System.EventHandler(this.MainForm_SizeChanged);
@@ -464,6 +470,7 @@
         private System.Windows.Forms.Label PercentLabel;
         private System.Windows.Forms.Label SNLabel;
         private System.Windows.Forms.PictureBox ClosePictureBox;
+        private System.Windows.Forms.Timer CardTimer;
     }
 }
 
