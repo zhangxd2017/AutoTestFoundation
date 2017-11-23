@@ -12,11 +12,8 @@ using System.Drawing;
 using AutoTestFoundation.Util;
 using System.Drawing.Text;
 using AutoTestFoundation.Extern;
-using System.Diagnostics;
-using System.Threading.Tasks;
 using System.ComponentModel;
 using System.IO.MemoryMappedFiles;
-using System.IO;
 
 namespace AutoTestFoundation
 {
@@ -95,10 +92,16 @@ namespace AutoTestFoundation
             int messageType = (int)m.WParam;
             switch (messageType)
             {
-                case CopyData.MSG_TYPE_LOG:
+                case CopyData.MSG_TYPE_LOG: //打印LOG
                     COPYDATASTRUCT cds = new COPYDATASTRUCT();
                     cds = (COPYDATASTRUCT)m.GetLParam(cds.GetType());
                     ShowLog(new object[] { (int)cds.dwData, cds.lpData });
+                    break;
+                case CopyData.MSG_GET_PHOTO:    //获取一张图片
+                    break;
+                case CopyData.MSG_SET_CONTROL:  //设置控制卡IO输出
+                    break;
+                case CopyData.MSG_TOUCH_SCREEN: //设置控制卡执行触摸(点/划线)
                     break;
                 default:
                     break;
